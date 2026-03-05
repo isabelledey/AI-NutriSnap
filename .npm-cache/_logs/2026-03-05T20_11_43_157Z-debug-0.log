@@ -1,0 +1,42 @@
+0 verbose cli /Users/isabelledeychev/.nvm/versions/node/v16.18.0/bin/node /Users/isabelledeychev/.nvm/versions/node/v16.18.0/bin/npm
+1 info using npm@9.7.1
+2 info using node@v16.18.0
+3 timing npm:load:whichnode Completed in 1ms
+4 timing config:load:defaults Completed in 1ms
+5 timing config:load:file:/Users/isabelledeychev/.nvm/versions/node/v16.18.0/lib/node_modules/npm/npmrc Completed in 1ms
+6 timing config:load:builtin Completed in 1ms
+7 timing config:load:cli Completed in 2ms
+8 timing config:load:env Completed in 0ms
+9 timing config:load:file:/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/.npmrc Completed in 0ms
+10 timing config:load:project Completed in 3ms
+11 timing config:load:file:/Users/isabelledeychev/.npmrc Completed in 0ms
+12 timing config:load:user Completed in 0ms
+13 timing config:load:file:/Users/isabelledeychev/.nvm/versions/node/v16.18.0/etc/npmrc Completed in 1ms
+14 timing config:load:global Completed in 1ms
+15 timing config:load:setEnvs Completed in 0ms
+16 timing config:load Completed in 8ms
+17 timing npm:load:configload Completed in 8ms
+18 timing config:load:flatten Completed in 2ms
+19 timing npm:load:mkdirpcache Completed in 0ms
+20 timing npm:load:mkdirplogs Completed in 0ms
+21 verbose title npm install
+22 verbose argv "install" "--cache" ".npm-cache"
+23 timing npm:load:setTitle Completed in 1ms
+24 timing npm:load:display Completed in 0ms
+25 verbose logfile logs-max:10 dir:/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/.npm-cache/_logs/2026-03-05T20_11_43_157Z-
+26 verbose logfile /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/.npm-cache/_logs/2026-03-05T20_11_43_157Z-debug-0.log
+27 timing npm:load:logFile Completed in 5ms
+28 timing npm:load:timers Completed in 0ms
+29 timing npm:load:configScope Completed in 0ms
+30 timing npm:load Completed in 25ms
+31 timing arborist:ctor Completed in 0ms
+32 timing arborist:ctor Completed in 1ms
+33 silly logfile done cleaning log files
+34 timing idealTree:init Completed in 8ms
+35 timing idealTree:userRequests Completed in 0ms
+36 silly idealTree buildDeps
+37 silly fetch manifest @hookform/resolvers@^3.9.1
+38 silly fetch manifest @vercel/analytics@1.6.1
+39 silly fetch manifest @radix-ui/react-accordion@1.2.12
+40 silly fetch manifest @radix-ui/react-alert-dialog@1.1.15
+41 silly fetch manifest @radix-ui/react-aspect-ratio@1.1.8

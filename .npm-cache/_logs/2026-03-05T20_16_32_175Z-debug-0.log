@@ -1,0 +1,729 @@
+0 verbose cli /Users/isabelledeychev/.nvm/versions/node/v20.20.0/bin/node /Users/isabelledeychev/.nvm/versions/node/v20.20.0/bin/npm
+1 info using npm@10.8.2
+2 info using node@v20.20.0
+3 silly config load:file:/Users/isabelledeychev/.nvm/versions/node/v20.20.0/lib/node_modules/npm/npmrc
+4 silly config load:file:/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/.npmrc
+5 silly config load:file:/Users/isabelledeychev/.npmrc
+6 silly config load:file:/Users/isabelledeychev/.nvm/versions/node/v20.20.0/etc/npmrc
+7 verbose title npm install
+8 verbose argv "install" "--cache" ".npm-cache"
+9 verbose logfile logs-max:10 dir:/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/.npm-cache/_logs/2026-03-05T20_16_32_175Z-
+10 verbose logfile /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/.npm-cache/_logs/2026-03-05T20_16_32_175Z-debug-0.log
+11 silly packumentCache heap:2197815296 maxSize:549453824 maxEntrySize:274726912
+12 silly logfile done cleaning log files
+13 silly idealTree buildDeps
+14 silly fetch manifest next@16.1.6
+15 silly packumentCache full:https://registry.npmjs.org/next cache-miss
+16 http fetch GET 200 https://registry.npmjs.org/next 61ms (cache hit)
+17 silly packumentCache full:https://registry.npmjs.org/next set size:29428746 disposed:false
+18 silly fetch manifest @opentelemetry/api@^1.1.0
+19 silly packumentCache full:https://registry.npmjs.org/@opentelemetry%2fapi cache-miss
+20 http fetch GET 200 https://registry.npmjs.org/@opentelemetry%2fapi 9ms (cache hit)
+21 silly packumentCache full:https://registry.npmjs.org/@opentelemetry%2fapi set size:455567 disposed:false
+22 silly fetch manifest @playwright/test@^1.51.1
+23 silly packumentCache full:https://registry.npmjs.org/@playwright%2ftest cache-miss
+24 http fetch GET 200 https://registry.npmjs.org/@playwright%2ftest 62ms (cache hit)
+25 silly packumentCache full:https://registry.npmjs.org/@playwright%2ftest set size:8817645 disposed:false
+26 silly fetch manifest babel-plugin-react-compiler@*
+27 silly packumentCache full:https://registry.npmjs.org/babel-plugin-react-compiler cache-miss
+28 http fetch GET 200 https://registry.npmjs.org/babel-plugin-react-compiler 32ms (cache hit)
+29 silly packumentCache full:https://registry.npmjs.org/babel-plugin-react-compiler set size:1270797 disposed:false
+30 silly fetch manifest react@19.2.4
+31 silly packumentCache full:https://registry.npmjs.org/react cache-miss
+32 http fetch GET 200 https://registry.npmjs.org/react 19ms (cache hit)
+33 silly packumentCache full:https://registry.npmjs.org/react set size:6531716 disposed:false
+34 silly fetch manifest react-dom@19.2.4
+35 silly packumentCache full:https://registry.npmjs.org/react-dom cache-miss
+36 http fetch GET 200 https://registry.npmjs.org/react-dom 36ms (cache hit)
+37 silly packumentCache full:https://registry.npmjs.org/react-dom set size:8664930 disposed:false
+38 silly fetch manifest sass@^1.3.0
+39 silly packumentCache full:https://registry.npmjs.org/sass cache-miss
+40 http fetch GET 200 https://registry.npmjs.org/sass 6ms (cache hit)
+41 silly packumentCache full:https://registry.npmjs.org/sass set size:722061 disposed:false
+42 silly placeDep ROOT next@16.1.6 REPLACE for: my-project@0.1.0 want: 16.1.6
+43 silly fetch manifest @next/swc-darwin-x64@16.1.6
+44 silly packumentCache full:https://registry.npmjs.org/@next%2fswc-darwin-x64 cache-miss
+45 silly fetch manifest @next/swc-linux-x64-gnu@16.1.6
+46 silly packumentCache full:https://registry.npmjs.org/@next%2fswc-linux-x64-gnu cache-miss
+47 silly fetch manifest @next/swc-linux-x64-musl@16.1.6
+48 silly packumentCache full:https://registry.npmjs.org/@next%2fswc-linux-x64-musl cache-miss
+49 silly fetch manifest @next/swc-win32-x64-msvc@16.1.6
+50 silly packumentCache full:https://registry.npmjs.org/@next%2fswc-win32-x64-msvc cache-miss
+51 silly fetch manifest @next/swc-linux-arm64-gnu@16.1.6
+52 silly packumentCache full:https://registry.npmjs.org/@next%2fswc-linux-arm64-gnu cache-miss
+53 silly fetch manifest @next/swc-linux-arm64-musl@16.1.6
+54 silly packumentCache full:https://registry.npmjs.org/@next%2fswc-linux-arm64-musl cache-miss
+55 silly fetch manifest @next/swc-win32-arm64-msvc@16.1.6
+56 silly packumentCache full:https://registry.npmjs.org/@next%2fswc-win32-arm64-msvc cache-miss
+57 http fetch GET 200 https://registry.npmjs.org/@next%2fswc-linux-x64-musl 102ms (cache hit)
+58 silly packumentCache full:https://registry.npmjs.org/@next%2fswc-linux-x64-musl set size:4848625 disposed:false
+59 http fetch GET 200 https://registry.npmjs.org/@next%2fswc-win32-x64-msvc 128ms (cache hit)
+60 silly packumentCache full:https://registry.npmjs.org/@next%2fswc-win32-x64-msvc set size:5065341 disposed:false
+61 http fetch GET 200 https://registry.npmjs.org/@next%2fswc-darwin-x64 171ms (cache hit)
+62 silly packumentCache full:https://registry.npmjs.org/@next%2fswc-darwin-x64 set size:4991017 disposed:false
+63 http fetch GET 200 https://registry.npmjs.org/@next%2fswc-linux-x64-gnu 208ms (cache hit)
+64 silly packumentCache full:https://registry.npmjs.org/@next%2fswc-linux-x64-gnu set size:5092249 disposed:false
+65 http fetch GET 200 https://registry.npmjs.org/@next%2fswc-win32-arm64-msvc 268ms (cache hit)
+66 silly packumentCache full:https://registry.npmjs.org/@next%2fswc-win32-arm64-msvc set size:4877375 disposed:false
+67 http fetch GET 200 https://registry.npmjs.org/@next%2fswc-linux-arm64-musl 302ms (cache hit)
+68 silly packumentCache full:https://registry.npmjs.org/@next%2fswc-linux-arm64-musl set size:4911540 disposed:false
+69 http fetch GET 200 https://registry.npmjs.org/@next%2fswc-linux-arm64-gnu 328ms (cache hit)
+70 silly packumentCache full:https://registry.npmjs.org/@next%2fswc-linux-arm64-gnu set size:4894511 disposed:false
+71 silly fetch manifest @tailwindcss/oxide-android-arm64@4.2.1
+72 silly packumentCache full:https://registry.npmjs.org/@tailwindcss%2foxide-android-arm64 cache-miss
+73 http fetch GET 200 https://registry.npmjs.org/@tailwindcss%2foxide-android-arm64 22ms (cache hit)
+74 silly packumentCache full:https://registry.npmjs.org/@tailwindcss%2foxide-android-arm64 set size:1747260 disposed:false
+75 silly fetch manifest @tailwindcss/oxide-darwin-x64@4.2.1
+76 silly packumentCache full:https://registry.npmjs.org/@tailwindcss%2foxide-darwin-x64 cache-miss
+77 http fetch GET 200 https://registry.npmjs.org/@tailwindcss%2foxide-darwin-x64 43ms (cache hit)
+78 silly packumentCache full:https://registry.npmjs.org/@tailwindcss%2foxide-darwin-x64 set size:2575813 disposed:false
+79 silly fetch manifest @tailwindcss/oxide-freebsd-x64@4.2.1
+80 silly packumentCache full:https://registry.npmjs.org/@tailwindcss%2foxide-freebsd-x64 cache-miss
+81 http fetch GET 200 https://registry.npmjs.org/@tailwindcss%2foxide-freebsd-x64 40ms (cache hit)
+82 silly packumentCache full:https://registry.npmjs.org/@tailwindcss%2foxide-freebsd-x64 set size:2588704 disposed:false
+83 silly fetch manifest @tailwindcss/oxide-linux-arm-gnueabihf@4.2.1
+84 silly packumentCache full:https://registry.npmjs.org/@tailwindcss%2foxide-linux-arm-gnueabihf cache-miss
+85 http fetch GET 200 https://registry.npmjs.org/@tailwindcss%2foxide-linux-arm-gnueabihf 36ms (cache hit)
+86 silly packumentCache full:https://registry.npmjs.org/@tailwindcss%2foxide-linux-arm-gnueabihf set size:2674540 disposed:false
+87 silly fetch manifest @tailwindcss/oxide-linux-arm64-gnu@4.2.1
+88 silly packumentCache full:https://registry.npmjs.org/@tailwindcss%2foxide-linux-arm64-gnu cache-miss
+89 http fetch GET 200 https://registry.npmjs.org/@tailwindcss%2foxide-linux-arm64-gnu 49ms (cache hit)
+90 silly packumentCache full:https://registry.npmjs.org/@tailwindcss%2foxide-linux-arm64-gnu set size:2652181 disposed:false
+91 silly fetch manifest @tailwindcss/oxide-linux-arm64-musl@4.2.1
+92 silly packumentCache full:https://registry.npmjs.org/@tailwindcss%2foxide-linux-arm64-musl cache-miss
+93 http fetch GET 200 https://registry.npmjs.org/@tailwindcss%2foxide-linux-arm64-musl 21ms (cache hit)
+94 silly packumentCache full:https://registry.npmjs.org/@tailwindcss%2foxide-linux-arm64-musl set size:2662072 disposed:false
+95 silly fetch manifest @tailwindcss/oxide-linux-x64-gnu@4.2.1
+96 silly packumentCache full:https://registry.npmjs.org/@tailwindcss%2foxide-linux-x64-gnu cache-miss
+97 http fetch GET 200 https://registry.npmjs.org/@tailwindcss%2foxide-linux-x64-gnu 44ms (cache hit)
+98 silly packumentCache full:https://registry.npmjs.org/@tailwindcss%2foxide-linux-x64-gnu set size:2628716 disposed:false
+99 silly fetch manifest @tailwindcss/oxide-linux-x64-musl@4.2.1
+100 silly packumentCache full:https://registry.npmjs.org/@tailwindcss%2foxide-linux-x64-musl cache-miss
+101 http fetch GET 200 https://registry.npmjs.org/@tailwindcss%2foxide-linux-x64-musl 33ms (cache hit)
+102 silly packumentCache full:https://registry.npmjs.org/@tailwindcss%2foxide-linux-x64-musl set size:2636353 disposed:false
+103 silly fetch manifest @tailwindcss/oxide-wasm32-wasi@4.2.1
+104 silly packumentCache full:https://registry.npmjs.org/@tailwindcss%2foxide-wasm32-wasi cache-miss
+105 http fetch GET 200 https://registry.npmjs.org/@tailwindcss%2foxide-wasm32-wasi 17ms (cache hit)
+106 silly packumentCache full:https://registry.npmjs.org/@tailwindcss%2foxide-wasm32-wasi set size:1132826 disposed:false
+107 silly fetch manifest @tailwindcss/oxide-win32-arm64-msvc@4.2.1
+108 silly packumentCache full:https://registry.npmjs.org/@tailwindcss%2foxide-win32-arm64-msvc cache-miss
+109 http fetch GET 200 https://registry.npmjs.org/@tailwindcss%2foxide-win32-arm64-msvc 44ms (cache hit)
+110 silly packumentCache full:https://registry.npmjs.org/@tailwindcss%2foxide-win32-arm64-msvc set size:1719741 disposed:false
+111 silly fetch manifest @tailwindcss/oxide-win32-x64-msvc@4.2.1
+112 silly packumentCache full:https://registry.npmjs.org/@tailwindcss%2foxide-win32-x64-msvc cache-miss
+113 http fetch GET 200 https://registry.npmjs.org/@tailwindcss%2foxide-win32-x64-msvc 30ms (cache hit)
+114 silly packumentCache full:https://registry.npmjs.org/@tailwindcss%2foxide-win32-x64-msvc set size:2611773 disposed:false
+115 silly placeDep node_modules/@tailwindcss/oxide @tailwindcss/oxide-android-arm64@4.2.1 OK for: @tailwindcss/oxide@4.2.1 want: 4.2.1
+116 silly placeDep node_modules/@tailwindcss/oxide @tailwindcss/oxide-darwin-x64@4.2.1 OK for: @tailwindcss/oxide@4.2.1 want: 4.2.1
+117 silly placeDep node_modules/@tailwindcss/oxide @tailwindcss/oxide-freebsd-x64@4.2.1 OK for: @tailwindcss/oxide@4.2.1 want: 4.2.1
+118 silly placeDep node_modules/@tailwindcss/oxide @tailwindcss/oxide-linux-arm-gnueabihf@4.2.1 OK for: @tailwindcss/oxide@4.2.1 want: 4.2.1
+119 silly placeDep node_modules/@tailwindcss/oxide @tailwindcss/oxide-linux-arm64-gnu@4.2.1 OK for: @tailwindcss/oxide@4.2.1 want: 4.2.1
+120 silly placeDep node_modules/@tailwindcss/oxide @tailwindcss/oxide-linux-arm64-musl@4.2.1 OK for: @tailwindcss/oxide@4.2.1 want: 4.2.1
+121 silly placeDep node_modules/@tailwindcss/oxide @tailwindcss/oxide-linux-x64-gnu@4.2.1 OK for: @tailwindcss/oxide@4.2.1 want: 4.2.1
+122 silly placeDep node_modules/@tailwindcss/oxide @tailwindcss/oxide-linux-x64-musl@4.2.1 OK for: @tailwindcss/oxide@4.2.1 want: 4.2.1
+123 silly placeDep node_modules/@tailwindcss/oxide @tailwindcss/oxide-wasm32-wasi@4.2.1 OK for: @tailwindcss/oxide@4.2.1 want: 4.2.1
+124 silly placeDep node_modules/@tailwindcss/oxide @tailwindcss/oxide-win32-arm64-msvc@4.2.1 OK for: @tailwindcss/oxide@4.2.1 want: 4.2.1
+125 silly placeDep node_modules/@tailwindcss/oxide @tailwindcss/oxide-win32-x64-msvc@4.2.1 OK for: @tailwindcss/oxide@4.2.1 want: 4.2.1
+126 silly fetch manifest lightningcss-darwin-x64@1.31.1
+127 silly packumentCache full:https://registry.npmjs.org/lightningcss-darwin-x64 cache-miss
+128 http fetch GET 200 https://registry.npmjs.org/lightningcss-darwin-x64 10ms (cache hit)
+129 silly packumentCache full:https://registry.npmjs.org/lightningcss-darwin-x64 set size:77015 disposed:false
+130 silly fetch manifest lightningcss-linux-x64-gnu@1.31.1
+131 silly packumentCache full:https://registry.npmjs.org/lightningcss-linux-x64-gnu cache-miss
+132 http fetch GET 200 https://registry.npmjs.org/lightningcss-linux-x64-gnu 12ms (cache hit)
+133 silly packumentCache full:https://registry.npmjs.org/lightningcss-linux-x64-gnu set size:78391 disposed:false
+134 silly fetch manifest lightningcss-win32-x64-msvc@1.31.1
+135 silly packumentCache full:https://registry.npmjs.org/lightningcss-win32-x64-msvc cache-miss
+136 http fetch GET 200 https://registry.npmjs.org/lightningcss-win32-x64-msvc 9ms (cache hit)
+137 silly packumentCache full:https://registry.npmjs.org/lightningcss-win32-x64-msvc set size:77943 disposed:false
+138 silly fetch manifest lightningcss-win32-arm64-msvc@1.31.1
+139 silly packumentCache full:https://registry.npmjs.org/lightningcss-win32-arm64-msvc cache-miss
+140 http fetch GET 200 https://registry.npmjs.org/lightningcss-win32-arm64-msvc 4ms (cache hit)
+141 silly packumentCache full:https://registry.npmjs.org/lightningcss-win32-arm64-msvc set size:24914 disposed:false
+142 silly fetch manifest lightningcss-linux-arm64-gnu@1.31.1
+143 silly packumentCache full:https://registry.npmjs.org/lightningcss-linux-arm64-gnu cache-miss
+144 http fetch GET 200 https://registry.npmjs.org/lightningcss-linux-arm64-gnu 7ms (cache hit)
+145 silly packumentCache full:https://registry.npmjs.org/lightningcss-linux-arm64-gnu set size:78941 disposed:false
+146 silly fetch manifest lightningcss-linux-arm-gnueabihf@1.31.1
+147 silly packumentCache full:https://registry.npmjs.org/lightningcss-linux-arm-gnueabihf cache-miss
+148 http fetch GET 200 https://registry.npmjs.org/lightningcss-linux-arm-gnueabihf 16ms (cache hit)
+149 silly packumentCache full:https://registry.npmjs.org/lightningcss-linux-arm-gnueabihf set size:79171 disposed:false
+150 silly fetch manifest lightningcss-linux-arm64-musl@1.31.1
+151 silly packumentCache full:https://registry.npmjs.org/lightningcss-linux-arm64-musl cache-miss
+152 http fetch GET 200 https://registry.npmjs.org/lightningcss-linux-arm64-musl 10ms (cache hit)
+153 silly packumentCache full:https://registry.npmjs.org/lightningcss-linux-arm64-musl set size:79156 disposed:false
+154 silly fetch manifest lightningcss-linux-x64-musl@1.31.1
+155 silly packumentCache full:https://registry.npmjs.org/lightningcss-linux-x64-musl cache-miss
+156 http fetch GET 200 https://registry.npmjs.org/lightningcss-linux-x64-musl 22ms (cache hit)
+157 silly packumentCache full:https://registry.npmjs.org/lightningcss-linux-x64-musl set size:78594 disposed:false
+158 silly fetch manifest lightningcss-freebsd-x64@1.31.1
+159 silly packumentCache full:https://registry.npmjs.org/lightningcss-freebsd-x64 cache-miss
+160 http fetch GET 200 https://registry.npmjs.org/lightningcss-freebsd-x64 14ms (cache hit)
+161 silly packumentCache full:https://registry.npmjs.org/lightningcss-freebsd-x64 set size:41190 disposed:false
+162 silly fetch manifest lightningcss-android-arm64@1.31.1
+163 silly packumentCache full:https://registry.npmjs.org/lightningcss-android-arm64 cache-miss
+164 http fetch GET 200 https://registry.npmjs.org/lightningcss-android-arm64 8ms (cache hit)
+165 silly packumentCache full:https://registry.npmjs.org/lightningcss-android-arm64 set size:5971 disposed:false
+166 silly placeDep node_modules/lightningcss lightningcss-android-arm64@1.31.1 OK for: lightningcss@1.31.1 want: 1.31.1
+167 silly placeDep node_modules/lightningcss lightningcss-darwin-x64@1.31.1 OK for: lightningcss@1.31.1 want: 1.31.1
+168 silly placeDep node_modules/lightningcss lightningcss-freebsd-x64@1.31.1 OK for: lightningcss@1.31.1 want: 1.31.1
+169 silly placeDep node_modules/lightningcss lightningcss-linux-arm-gnueabihf@1.31.1 OK for: lightningcss@1.31.1 want: 1.31.1
+170 silly placeDep node_modules/lightningcss lightningcss-linux-arm64-gnu@1.31.1 OK for: lightningcss@1.31.1 want: 1.31.1
+171 silly placeDep node_modules/lightningcss lightningcss-linux-arm64-musl@1.31.1 OK for: lightningcss@1.31.1 want: 1.31.1
+172 silly placeDep node_modules/lightningcss lightningcss-linux-x64-gnu@1.31.1 OK for: lightningcss@1.31.1 want: 1.31.1
+173 silly placeDep node_modules/lightningcss lightningcss-linux-x64-musl@1.31.1 OK for: lightningcss@1.31.1 want: 1.31.1
+174 silly placeDep node_modules/lightningcss lightningcss-win32-arm64-msvc@1.31.1 OK for: lightningcss@1.31.1 want: 1.31.1
+175 silly placeDep node_modules/lightningcss lightningcss-win32-x64-msvc@1.31.1 OK for: lightningcss@1.31.1 want: 1.31.1
+176 silly placeDep ROOT @next/swc-darwin-x64@16.1.6 OK for: next@16.1.6 want: 16.1.6
+177 silly placeDep ROOT @next/swc-linux-arm64-gnu@16.1.6 OK for: next@16.1.6 want: 16.1.6
+178 silly placeDep ROOT @next/swc-linux-arm64-musl@16.1.6 OK for: next@16.1.6 want: 16.1.6
+179 silly placeDep ROOT @next/swc-linux-x64-gnu@16.1.6 OK for: next@16.1.6 want: 16.1.6
+180 silly placeDep ROOT @next/swc-linux-x64-musl@16.1.6 OK for: next@16.1.6 want: 16.1.6
+181 silly placeDep ROOT @next/swc-win32-arm64-msvc@16.1.6 OK for: next@16.1.6 want: 16.1.6
+182 silly placeDep ROOT @next/swc-win32-x64-msvc@16.1.6 OK for: next@16.1.6 want: 16.1.6
+183 silly reify mark retired [
+183 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss-android-arm64'
+183 silly reify ]
+184 silly reify mark retired [
+184 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss-freebsd-x64'
+184 silly reify ]
+185 silly reify mark retired [
+185 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss-darwin-x64'
+185 silly reify ]
+186 silly reify mark retired [
+186 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss-linux-arm64-gnu'
+186 silly reify ]
+187 silly reify mark retired [
+187 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss-linux-arm64-musl'
+187 silly reify ]
+188 silly reify mark retired [
+188 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss-linux-arm-gnueabihf'
+188 silly reify ]
+189 silly reify mark retired [
+189 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss-linux-x64-gnu'
+189 silly reify ]
+190 silly reify mark retired [
+190 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss-linux-x64-musl'
+190 silly reify ]
+191 silly reify mark retired [
+191 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss-win32-arm64-msvc'
+191 silly reify ]
+192 silly reify mark retired [
+192 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss-win32-x64-msvc'
+192 silly reify ]
+193 silly reify mark retired [
+193 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/next'
+193 silly reify ]
+194 silly reify mark retired [
+194 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-linux-arm64-gnu'
+194 silly reify ]
+195 silly reify mark retired [
+195 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-darwin-x64'
+195 silly reify ]
+196 silly reify mark retired [
+196 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-linux-arm64-musl'
+196 silly reify ]
+197 silly reify mark retired [
+197 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-linux-x64-gnu'
+197 silly reify ]
+198 silly reify mark retired [
+198 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-win32-arm64-msvc'
+198 silly reify ]
+199 silly reify mark retired [
+199 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-win32-x64-msvc'
+199 silly reify ]
+200 silly reify mark retired [
+200 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-linux-x64-musl'
+200 silly reify ]
+201 silly reify mark retired [
+201 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide-android-arm64'
+201 silly reify ]
+202 silly reify mark retired [
+202 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide-darwin-x64'
+202 silly reify ]
+203 silly reify mark retired [
+203 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide-freebsd-x64'
+203 silly reify ]
+204 silly reify mark retired [
+204 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide-linux-arm-gnueabihf'
+204 silly reify ]
+205 silly reify mark retired [
+205 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide-linux-arm64-gnu'
+205 silly reify ]
+206 silly reify mark retired [
+206 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide-linux-arm64-musl'
+206 silly reify ]
+207 silly reify mark retired [
+207 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide-linux-x64-musl'
+207 silly reify ]
+208 silly reify mark retired [
+208 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide-wasm32-wasi'
+208 silly reify ]
+209 silly reify mark retired [
+209 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide-win32-arm64-msvc'
+209 silly reify ]
+210 silly reify mark retired [
+210 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide-win32-x64-msvc'
+210 silly reify ]
+211 silly reify mark retired [
+211 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide-linux-x64-gnu'
+211 silly reify ]
+212 silly reify mark retired [
+212 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/browserslist',
+212 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/browserslist'
+212 silly reify ]
+213 silly reify mark retired [
+213 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/baseline-browser-mapping',
+213 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/baseline-browser-mapping'
+213 silly reify ]
+214 silly reify mark retired [
+214 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/autoprefixer',
+214 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/autoprefixer'
+214 silly reify ]
+215 silly reify mark retired [
+215 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/jiti',
+215 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/jiti'
+215 silly reify ]
+216 silly reify mark retired [
+216 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/loose-envify',
+216 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/loose-envify'
+216 silly reify ]
+217 silly reify mark retired [
+217 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/nanoid',
+217 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/nanoid'
+217 silly reify ]
+218 silly reify mark retired [
+218 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/semver',
+218 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/semver'
+218 silly reify ]
+219 silly reify mark retired [
+219 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/typescript',
+219 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/tsc',
+219 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/tsserver'
+219 silly reify ]
+220 silly reify mark retired [
+220 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/update-browserslist-db',
+220 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/update-browserslist-db'
+220 silly reify ]
+221 silly reify moves {
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss-android-arm64': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.lightningcss-android-arm64-couT84nr',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss-freebsd-x64': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.lightningcss-freebsd-x64-NYV6xI0T',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss-darwin-x64': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.lightningcss-darwin-x64-oynlPQmd',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss-linux-arm64-gnu': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.lightningcss-linux-arm64-gnu-3GOB65mg',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss-linux-arm64-musl': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.lightningcss-linux-arm64-musl-isDJKO8U',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss-linux-arm-gnueabihf': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.lightningcss-linux-arm-gnueabihf-Ln7Pr6NK',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss-linux-x64-gnu': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.lightningcss-linux-x64-gnu-4U00HSgx',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss-linux-x64-musl': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.lightningcss-linux-x64-musl-c0nGOpXD',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss-win32-arm64-msvc': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.lightningcss-win32-arm64-msvc-8MbJBhXZ',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss-win32-x64-msvc': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.lightningcss-win32-x64-msvc-0xjCh7hO',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/next': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.next-6Vas5RAp',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-linux-arm64-gnu': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/.swc-linux-arm64-gnu-mJhaVrBN',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-darwin-x64': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/.swc-darwin-x64-fEGsgkad',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-linux-arm64-musl': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/.swc-linux-arm64-musl-sxEC7acp',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-linux-x64-gnu': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/.swc-linux-x64-gnu-XpkbNMAc',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-win32-arm64-msvc': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/.swc-win32-arm64-msvc-aSIc9T0c',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-win32-x64-msvc': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/.swc-win32-x64-msvc-DGu3yrSj',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-linux-x64-musl': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/.swc-linux-x64-musl-xbAzOGNf',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide-android-arm64': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/.oxide-android-arm64-74rxiwmn',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide-darwin-x64': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/.oxide-darwin-x64-VtxXVxeW',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide-freebsd-x64': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/.oxide-freebsd-x64-QEUGoPfH',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide-linux-arm-gnueabihf': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/.oxide-linux-arm-gnueabihf-qcomxoya',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide-linux-arm64-gnu': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/.oxide-linux-arm64-gnu-ll19hVba',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide-linux-arm64-musl': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/.oxide-linux-arm64-musl-vcMkSVtR',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide-linux-x64-musl': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/.oxide-linux-x64-musl-tN022vdc',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide-wasm32-wasi': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/.oxide-wasm32-wasi-6NAPKF4D',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide-win32-arm64-msvc': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/.oxide-win32-arm64-msvc-lsngmNNm',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide-win32-x64-msvc': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/.oxide-win32-x64-msvc-adBKgBWS',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide-linux-x64-gnu': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/.oxide-linux-x64-gnu-tGamXBDv',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/browserslist': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.browserslist-1Lm5PU5S',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/browserslist': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/.browserslist-BNxK3lKg',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/baseline-browser-mapping': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.baseline-browser-mapping-jp1UXQ98',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/baseline-browser-mapping': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/.baseline-browser-mapping-rwo8FtdH',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/autoprefixer': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.autoprefixer-klurMft7',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/autoprefixer': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/.autoprefixer-TKEzTgnh',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/jiti': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.jiti-4uUfl0ja',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/jiti': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/.jiti-yjMQPok4',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/loose-envify': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.loose-envify-C3G492f0',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/loose-envify': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/.loose-envify-bTs2X4sz',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/nanoid': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.nanoid-gEdt1FRl',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/nanoid': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/.nanoid-AvrAgrlx',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/semver': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.semver-ymzR74BR',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/semver': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/.semver-SVWaMBnp',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/typescript': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.typescript-LiakGTMM',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/tsc': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/.tsc-qV0G14lA',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/tsserver': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/.tsserver-G6uKMSkN',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/update-browserslist-db': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.update-browserslist-db-VDPPqHdP',
+221 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/update-browserslist-db': '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/.bin/.update-browserslist-db-AQA4QpcS'
+221 silly reify }
+222 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide/node_modules/@tailwindcss/oxide-wasm32-wasi
+223 silly reify mark deleted [
+223 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide/node_modules/@tailwindcss/oxide-wasm32-wasi'
+223 silly reify ]
+224 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@emnapi/runtime
+225 silly reify mark deleted [
+225 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@emnapi/runtime'
+225 silly reify ]
+226 silly audit bulk request {
+226 silly audit   postcss: [ '8.5.8', '8.4.31' ],
+226 silly audit   autoprefixer: [ '10.4.27' ],
+226 silly audit   'client-only': [ '0.0.1' ],
+226 silly audit   'baseline-browser-mapping': [ '2.10.0' ],
+226 silly audit   'caniuse-lite': [ '1.0.30001776' ],
+226 silly audit   browserslist: [ '4.28.1' ],
+226 silly audit   clsx: [ '2.1.1' ],
+226 silly audit   'class-variance-authority': [ '0.7.1' ],
+226 silly audit   'd3-array': [ '3.2.4' ],
+226 silly audit   'd3-ease': [ '3.0.1' ],
+226 silly audit   'd3-color': [ '3.1.0' ],
+226 silly audit   'aria-hidden': [ '1.2.6' ],
+226 silly audit   'd3-interpolate': [ '3.0.1' ],
+226 silly audit   'd3-scale': [ '4.0.2' ],
+226 silly audit   'd3-format': [ '3.1.2' ],
+226 silly audit   'd3-path': [ '3.1.0' ],
+226 silly audit   csstype: [ '3.2.3' ],
+226 silly audit   cmdk: [ '1.1.1' ],
+226 silly audit   'd3-shape': [ '3.2.0' ],
+226 silly audit   'd3-time-format': [ '4.1.0' ],
+226 silly audit   'decimal.js-light': [ '2.5.1' ],
+226 silly audit   'detect-node-es': [ '1.1.0' ],
+226 silly audit   'electron-to-chromium': [ '1.5.307' ],
+226 silly audit   'detect-libc': [ '2.1.2' ],
+226 silly audit   'embla-carousel': [ '8.6.0' ],
+226 silly audit   'embla-carousel-react': [ '8.6.0' ],
+226 silly audit   'dom-helpers': [ '5.2.1' ],
+226 silly audit   'date-fns': [ '4.1.0' ],
+226 silly audit   'embla-carousel-reactive-utils': [ '8.6.0' ],
+226 silly audit   'enhanced-resolve': [ '5.20.0' ],
+226 silly audit   'get-nonce': [ '1.0.1' ],
+226 silly audit   'fraction.js': [ '5.3.4' ],
+226 silly audit   'fast-equals': [ '5.4.0' ],
+226 silly audit   'd3-time': [ '3.1.0' ],
+226 silly audit   internmap: [ '2.0.3' ],
+226 silly audit   'graceful-fs': [ '4.2.11' ],
+226 silly audit   'd3-timer': [ '3.0.1' ],
+226 silly audit   lightningcss: [ '1.31.1' ],
+226 silly audit   'loose-envify': [ '1.4.0' ],
+226 silly audit   'input-otp': [ '1.4.2' ],
+226 silly audit   jiti: [ '2.6.1' ],
+226 silly audit   'lightningcss-darwin-arm64': [ '1.31.1' ],
+226 silly audit   'date-fns-jalali': [ '4.1.0-0' ],
+226 silly audit   escalade: [ '3.2.0' ],
+226 silly audit   nanoid: [ '3.3.11' ],
+226 silly audit   'lucide-react': [ '0.564.0' ],
+226 silly audit   lodash: [ '4.17.23' ],
+226 silly audit   'magic-string': [ '0.30.21' ],
+226 silly audit   'object-assign': [ '4.1.1' ],
+226 silly audit   'node-releases': [ '2.0.36' ],
+226 silly audit   picocolors: [ '1.1.1' ],
+226 silly audit   'postcss-value-parser': [ '4.2.0' ],
+226 silly audit   'next-themes': [ '0.4.6' ],
+226 silly audit   'js-tokens': [ '4.0.0' ],
+226 silly audit   react: [ '19.2.4' ],
+226 silly audit   'prop-types': [ '15.8.1' ],
+226 silly audit   'react-is': [ '16.13.1', '18.3.1' ],
+226 silly audit   'react-remove-scroll': [ '2.7.2' ],
+226 silly audit   'react-day-picker': [ '9.13.2' ],
+226 silly audit   'react-hook-form': [ '7.71.2' ],
+226 silly audit   'react-resizable-panels': [ '2.1.9' ],
+226 silly audit   'react-remove-scroll-bar': [ '2.3.8' ],
+226 silly audit   'react-dom': [ '19.2.4' ],
+226 silly audit   recharts: [ '2.15.0' ],
+226 silly audit   eventemitter3: [ '4.0.7' ],
+226 silly audit   'recharts-scale': [ '0.4.5' ],
+226 silly audit   'react-style-singleton': [ '2.2.3' ],
+226 silly audit   sonner: [ '1.7.4' ],
+226 silly audit   scheduler: [ '0.27.0' ],
+226 silly audit   semver: [ '7.7.4' ],
+226 silly audit   'source-map-js': [ '1.2.1' ],
+226 silly audit   'react-transition-group': [ '4.4.5' ],
+226 silly audit   'tailwind-merge': [ '3.5.0' ],
+226 silly audit   'react-smooth': [ '4.0.4' ],
+226 silly audit   tailwindcss: [ '4.2.1' ],
+226 silly audit   sharp: [ '0.34.5' ],
+226 silly audit   tapable: [ '2.3.0' ],
+226 silly audit   'tiny-invariant': [ '1.3.3' ],
+226 silly audit   tslib: [ '2.8.1' ],
+226 silly audit   'styled-jsx': [ '5.1.6' ],
+226 silly audit   'tw-animate-css': [ '1.3.3' ],
+226 silly audit   'use-sync-external-store': [ '1.6.0' ],
+226 silly audit   'update-browserslist-db': [ '1.2.3' ],
+226 silly audit   typescript: [ '5.7.3' ],
+226 silly audit   'use-callback-ref': [ '1.3.3' ],
+226 silly audit   'use-sidecar': [ '1.1.3' ],
+226 silly audit   'undici-types': [ '6.21.0' ],
+226 silly audit   zod: [ '3.25.76' ],
+226 silly audit   vaul: [ '1.1.2' ],
+226 silly audit   'victory-vendor': [ '36.9.2' ],
+226 silly audit   '@alloc/quick-lru': [ '5.2.0' ],
+226 silly audit   '@floating-ui/dom': [ '1.7.6' ],
+226 silly audit   '@floating-ui/core': [ '1.7.5' ],
+226 silly audit   '@floating-ui/react-dom': [ '2.1.8' ],
+226 silly audit   '@floating-ui/utils': [ '0.2.11' ],
+226 silly audit   '@babel/runtime': [ '7.28.6' ],
+226 silly audit   '@hookform/resolvers': [ '3.10.0' ],
+226 silly audit   '@jridgewell/gen-mapping': [ '0.3.13' ],
+226 silly audit   '@img/sharp-libvips-darwin-arm64': [ '1.2.4' ],
+226 silly audit   '@img/sharp-darwin-arm64': [ '0.34.5' ],
+226 silly audit   '@jridgewell/remapping': [ '2.3.5' ],
+226 silly audit   '@jridgewell/trace-mapping': [ '0.3.31' ],
+226 silly audit   '@jridgewell/resolve-uri': [ '3.1.2' ],
+226 silly audit   '@date-fns/tz': [ '1.4.1' ],
+226 silly audit   '@emnapi/runtime': [ '1.8.1' ],
+226 silly audit   '@jridgewell/sourcemap-codec': [ '1.5.5' ],
+226 silly audit   '@img/colour': [ '1.1.0' ],
+226 silly audit   '@next/swc-darwin-arm64': [ '16.1.6' ],
+226 silly audit   '@radix-ui/number': [ '1.1.1' ],
+226 silly audit   '@next/env': [ '16.1.6' ],
+226 silly audit   '@radix-ui/react-alert-dialog': [ '1.1.15' ],
+226 silly audit   '@radix-ui/react-slot': [ '1.2.3', '1.2.4' ],
+226 silly audit   '@radix-ui/react-arrow': [ '1.1.7' ],
+226 silly audit   '@radix-ui/react-accordion': [ '1.2.12' ],
+226 silly audit   '@radix-ui/react-aspect-ratio': [ '1.1.8' ],
+226 silly audit   '@radix-ui/react-primitive': [ '2.1.4', '2.1.3' ],
+226 silly audit   '@radix-ui/react-avatar': [ '1.1.11' ],
+226 silly audit   '@radix-ui/react-context': [ '1.1.3', '1.1.2' ],
+226 silly audit   '@radix-ui/react-collection': [ '1.1.7' ],
+226 silly audit   '@radix-ui/react-checkbox': [ '1.3.3' ],
+226 silly audit   '@radix-ui/react-collapsible': [ '1.1.12' ],
+226 silly audit   '@radix-ui/primitive': [ '1.1.3' ],
+226 silly audit   '@radix-ui/react-context-menu': [ '2.2.16' ],
+226 silly audit   '@radix-ui/react-compose-refs': [ '1.1.2' ],
+226 silly audit   '@radix-ui/react-dropdown-menu': [ '2.1.16' ],
+226 silly audit   '@radix-ui/react-dialog': [ '1.1.15' ],
+226 silly audit   '@radix-ui/react-dismissable-layer': [ '1.1.11' ],
+226 silly audit   '@radix-ui/react-direction': [ '1.1.1' ],
+226 silly audit   '@radix-ui/react-focus-scope': [ '1.1.7' ],
+226 silly audit   '@radix-ui/react-menu': [ '2.1.16' ],
+226 silly audit   '@radix-ui/react-hover-card': [ '1.1.15' ],
+226 silly audit   '@radix-ui/react-label': [ '2.1.8' ],
+226 silly audit   '@radix-ui/react-focus-guards': [ '1.1.3' ],
+226 silly audit   '@radix-ui/react-menubar': [ '1.1.16' ],
+226 silly audit   '@radix-ui/react-navigation-menu': [ '1.2.14' ],
+226 silly audit   '@radix-ui/react-popover': [ '1.1.15' ],
+226 silly audit   '@radix-ui/react-presence': [ '1.1.5' ],
+226 silly audit   '@radix-ui/react-popper': [ '1.2.8' ],
+226 silly audit   '@radix-ui/react-scroll-area': [ '1.2.10' ],
+226 silly audit   '@radix-ui/react-roving-focus': [ '1.1.11' ],
+226 silly audit   '@radix-ui/react-select': [ '2.2.6' ],
+226 silly audit   '@radix-ui/react-slider': [ '1.3.6' ],
+226 silly audit   '@radix-ui/react-separator': [ '1.1.8' ],
+226 silly audit   '@radix-ui/react-portal': [ '1.1.9' ],
+226 silly audit   '@radix-ui/react-toast': [ '1.2.15' ],
+226 silly audit   '@radix-ui/react-switch': [ '1.2.6' ],
+226 silly audit   '@radix-ui/react-radio-group': [ '1.3.8' ],
+226 silly audit   '@radix-ui/react-progress': [ '1.1.8' ],
+226 silly audit   '@radix-ui/react-tabs': [ '1.1.13' ],
+226 silly audit   '@radix-ui/react-tooltip': [ '1.2.8' ],
+226 silly audit   '@radix-ui/react-toggle-group': [ '1.1.11' ],
+226 silly audit   '@radix-ui/react-use-effect-event': [ '0.0.2' ],
+226 silly audit   '@radix-ui/react-use-callback-ref': [ '1.1.1' ],
+226 silly audit   '@radix-ui/react-use-is-hydrated': [ '0.1.0' ],
+226 silly audit   '@radix-ui/react-use-controllable-state': [ '1.2.2' ],
+226 silly audit   '@radix-ui/react-use-size': [ '1.1.1' ],
+226 silly audit   '@radix-ui/react-use-escape-keydown': [ '1.1.1' ],
+226 silly audit   '@radix-ui/react-use-previous': [ '1.1.1' ],
+226 silly audit   '@radix-ui/react-id': [ '1.1.1' ],
+226 silly audit   '@radix-ui/react-use-layout-effect': [ '1.1.1' ],
+226 silly audit   '@radix-ui/react-use-rect': [ '1.1.1' ],
+226 silly audit   '@tailwindcss/oxide-darwin-arm64': [ '4.2.1' ],
+226 silly audit   '@radix-ui/react-visually-hidden': [ '1.2.3' ],
+226 silly audit   '@tailwindcss/node': [ '4.2.1' ],
+226 silly audit   '@types/d3-interpolate': [ '3.0.4' ],
+226 silly audit   '@types/d3-array': [ '3.2.2' ],
+226 silly audit   '@types/d3-path': [ '3.1.1' ],
+226 silly audit   '@types/d3-ease': [ '3.0.2' ],
+226 silly audit   '@types/d3-scale': [ '4.0.9' ],
+226 silly audit   '@tailwindcss/oxide': [ '4.2.1' ],
+226 silly audit   '@types/d3-shape': [ '3.1.8' ],
+226 silly audit   '@types/d3-timer': [ '3.0.2' ],
+226 silly audit   '@radix-ui/react-toggle': [ '1.1.10' ],
+226 silly audit   '@radix-ui/rect': [ '1.1.1' ],
+226 silly audit   '@tailwindcss/postcss': [ '4.2.1' ],
+226 silly audit   '@vercel/analytics': [ '1.6.1' ],
+226 silly audit   '@swc/helpers': [ '0.5.15' ],
+226 silly audit   '@types/d3-color': [ '3.1.3' ],
+226 silly audit   '@types/d3-time': [ '3.0.4' ],
+226 silly audit   '@types/node': [ '22.19.13' ],
+226 silly audit   '@types/react-dom': [ '19.2.3' ],
+226 silly audit   '@types/react': [ '19.2.14' ],
+226 silly audit   next: [ '16.1.6' ],
+226 silly audit   '@tailwindcss/oxide-android-arm64': [ '4.2.1' ],
+226 silly audit   '@tailwindcss/oxide-darwin-x64': [ '4.2.1' ],
+226 silly audit   '@tailwindcss/oxide-freebsd-x64': [ '4.2.1' ],
+226 silly audit   '@tailwindcss/oxide-linux-arm-gnueabihf': [ '4.2.1' ],
+226 silly audit   '@tailwindcss/oxide-linux-arm64-gnu': [ '4.2.1' ],
+226 silly audit   '@tailwindcss/oxide-linux-arm64-musl': [ '4.2.1' ],
+226 silly audit   '@tailwindcss/oxide-linux-x64-gnu': [ '4.2.1' ],
+226 silly audit   '@tailwindcss/oxide-linux-x64-musl': [ '4.2.1' ],
+226 silly audit   '@tailwindcss/oxide-win32-arm64-msvc': [ '4.2.1' ],
+226 silly audit   '@tailwindcss/oxide-win32-x64-msvc': [ '4.2.1' ],
+226 silly audit   'lightningcss-android-arm64': [ '1.31.1' ],
+226 silly audit   'lightningcss-darwin-x64': [ '1.31.1' ],
+226 silly audit   'lightningcss-freebsd-x64': [ '1.31.1' ],
+226 silly audit   'lightningcss-linux-arm-gnueabihf': [ '1.31.1' ],
+226 silly audit   'lightningcss-linux-arm64-gnu': [ '1.31.1' ],
+226 silly audit   'lightningcss-linux-arm64-musl': [ '1.31.1' ],
+226 silly audit   'lightningcss-linux-x64-gnu': [ '1.31.1' ],
+226 silly audit   'lightningcss-linux-x64-musl': [ '1.31.1' ],
+226 silly audit   'lightningcss-win32-arm64-msvc': [ '1.31.1' ],
+226 silly audit   'lightningcss-win32-x64-msvc': [ '1.31.1' ],
+226 silly audit   '@next/swc-darwin-x64': [ '16.1.6' ],
+226 silly audit   '@next/swc-linux-arm64-gnu': [ '16.1.6' ],
+226 silly audit   '@next/swc-linux-arm64-musl': [ '16.1.6' ],
+226 silly audit   '@next/swc-linux-x64-gnu': [ '16.1.6' ],
+226 silly audit   '@next/swc-linux-x64-musl': [ '16.1.6' ],
+226 silly audit   '@next/swc-win32-arm64-msvc': [ '16.1.6' ],
+226 silly audit   '@next/swc-win32-x64-msvc': [ '16.1.6' ],
+226 silly audit   '@tailwindcss/oxide-wasm32-wasi': [ '4.2.1' ]
+226 silly audit }
+227 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide/node_modules/@tailwindcss/oxide-win32-x64-msvc
+228 silly reify mark deleted [
+228 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide/node_modules/@tailwindcss/oxide-win32-x64-msvc'
+228 silly reify ]
+229 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide/node_modules/@tailwindcss/oxide-win32-arm64-msvc
+230 silly reify mark deleted [
+230 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide/node_modules/@tailwindcss/oxide-win32-arm64-msvc'
+230 silly reify ]
+231 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide/node_modules/@tailwindcss/oxide-linux-x64-musl
+232 silly reify mark deleted [
+232 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide/node_modules/@tailwindcss/oxide-linux-x64-musl'
+232 silly reify ]
+233 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide/node_modules/@tailwindcss/oxide-linux-x64-gnu
+234 silly reify mark deleted [
+234 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide/node_modules/@tailwindcss/oxide-linux-x64-gnu'
+234 silly reify ]
+235 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide/node_modules/@tailwindcss/oxide-linux-arm64-musl
+236 silly reify mark deleted [
+236 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide/node_modules/@tailwindcss/oxide-linux-arm64-musl'
+236 silly reify ]
+237 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide/node_modules/@tailwindcss/oxide-linux-arm64-gnu
+238 silly reify mark deleted [
+238 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide/node_modules/@tailwindcss/oxide-linux-arm64-gnu'
+238 silly reify ]
+239 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide/node_modules/@tailwindcss/oxide-linux-arm-gnueabihf
+240 silly reify mark deleted [
+240 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide/node_modules/@tailwindcss/oxide-linux-arm-gnueabihf'
+240 silly reify ]
+241 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide/node_modules/@tailwindcss/oxide-freebsd-x64
+242 silly reify mark deleted [
+242 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide/node_modules/@tailwindcss/oxide-freebsd-x64'
+242 silly reify ]
+243 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide/node_modules/@tailwindcss/oxide-darwin-x64
+244 silly reify mark deleted [
+244 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide/node_modules/@tailwindcss/oxide-darwin-x64'
+244 silly reify ]
+245 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide/node_modules/@tailwindcss/oxide-android-arm64
+246 silly reify mark deleted [
+246 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@tailwindcss/oxide/node_modules/@tailwindcss/oxide-android-arm64'
+246 silly reify ]
+247 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss/node_modules/lightningcss-win32-x64-msvc
+248 silly reify mark deleted [
+248 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss/node_modules/lightningcss-win32-x64-msvc'
+248 silly reify ]
+249 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss/node_modules/lightningcss-win32-arm64-msvc
+250 silly reify mark deleted [
+250 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss/node_modules/lightningcss-win32-arm64-msvc'
+250 silly reify ]
+251 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss/node_modules/lightningcss-linux-x64-musl
+252 silly reify mark deleted [
+252 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss/node_modules/lightningcss-linux-x64-musl'
+252 silly reify ]
+253 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss/node_modules/lightningcss-linux-x64-gnu
+254 silly reify mark deleted [
+254 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss/node_modules/lightningcss-linux-x64-gnu'
+254 silly reify ]
+255 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss/node_modules/lightningcss-linux-arm64-musl
+256 silly reify mark deleted [
+256 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss/node_modules/lightningcss-linux-arm64-musl'
+256 silly reify ]
+257 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss/node_modules/lightningcss-linux-arm64-gnu
+258 silly reify mark deleted [
+258 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss/node_modules/lightningcss-linux-arm64-gnu'
+258 silly reify ]
+259 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss/node_modules/lightningcss-linux-arm-gnueabihf
+260 silly reify mark deleted [
+260 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss/node_modules/lightningcss-linux-arm-gnueabihf'
+260 silly reify ]
+261 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss/node_modules/lightningcss-freebsd-x64
+262 silly reify mark deleted [
+262 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss/node_modules/lightningcss-freebsd-x64'
+262 silly reify ]
+263 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss/node_modules/lightningcss-darwin-x64
+264 silly reify mark deleted [
+264 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss/node_modules/lightningcss-darwin-x64'
+264 silly reify ]
+265 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss/node_modules/lightningcss-android-arm64
+266 silly reify mark deleted [
+266 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/lightningcss/node_modules/lightningcss-android-arm64'
+266 silly reify ]
+267 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-linux-x64-musl
+268 silly reify mark deleted [
+268 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-linux-x64-musl'
+268 silly reify ]
+269 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-win32-x64-msvc
+270 silly reify mark deleted [
+270 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-win32-x64-msvc'
+270 silly reify ]
+271 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-win32-arm64-msvc
+272 silly reify mark deleted [
+272 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-win32-arm64-msvc'
+272 silly reify ]
+273 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-linux-x64-gnu
+274 silly reify mark deleted [
+274 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-linux-x64-gnu'
+274 silly reify ]
+275 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-linux-arm64-musl
+276 silly reify mark deleted [
+276 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-linux-arm64-musl'
+276 silly reify ]
+277 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-darwin-x64
+278 silly reify mark deleted [
+278 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-darwin-x64'
+278 silly reify ]
+279 verbose reify failed optional dependency /Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-linux-arm64-gnu
+280 silly reify mark deleted [
+280 silly reify   '/Users/isabelledeychev/Desktop/computer science/AI-diet-planner/node_modules/@next/swc-linux-arm64-gnu'
+280 silly reify ]
+281 silly packumentCache corgi:https://registry.npmjs.org/update-browserslist-db cache-miss
+282 silly packumentCache corgi:https://registry.npmjs.org/typescript cache-miss
+283 silly packumentCache corgi:https://registry.npmjs.org/semver cache-miss
+284 silly packumentCache corgi:https://registry.npmjs.org/nanoid cache-miss
+285 silly packumentCache corgi:https://registry.npmjs.org/loose-envify cache-miss
+286 silly packumentCache corgi:https://registry.npmjs.org/jiti cache-miss
+287 silly packumentCache corgi:https://registry.npmjs.org/autoprefixer cache-miss
+288 silly packumentCache corgi:https://registry.npmjs.org/baseline-browser-mapping cache-miss
+289 silly audit bulk request failed undefined
+290 verbose audit error FetchError: request to https://registry.npmjs.org/-/npm/v1/security/audits/quick failed, reason: getaddrinfo ENOTFOUND registry.npmjs.org
+290 verbose audit error     at ClientRequest.<anonymous> (/Users/isabelledeychev/.nvm/versions/node/v20.20.0/lib/node_modules/npm/node_modules/minipass-fetch/lib/index.js:130:14)
+290 verbose audit error     at ClientRequest.emit (node:events:524:28)
+290 verbose audit error     at emitErrorEvent (node:_http_client:101:11)
+290 verbose audit error     at _destroy (node:_http_client:884:9)
+290 verbose audit error     at onSocketNT (node:_http_client:904:5)
+290 verbose audit error     at process.processTicksAndRejections (node:internal/process/task_queues:83:21) {
+290 verbose audit error   code: 'ENOTFOUND',
+290 verbose audit error   errno: 'ENOTFOUND',
+290 verbose audit error   syscall: 'getaddrinfo',
+290 verbose audit error   hostname: 'registry.npmjs.org',
+290 verbose audit error   type: 'system'
+290 verbose audit error }
+291 silly audit error undefined
+292 silly audit report null
+293 silly packumentCache corgi:https://registry.npmjs.org/browserslist cache-miss
+294 http fetch GET https://registry.npmjs.org/nanoid attempt 1 failed with ENOTFOUND
+295 http fetch GET https://registry.npmjs.org/typescript attempt 1 failed with ENOTFOUND
+296 http fetch GET https://registry.npmjs.org/semver attempt 1 failed with ENOTFOUND
+297 http fetch GET https://registry.npmjs.org/jiti attempt 1 failed with ENOTFOUND
+298 http fetch GET https://registry.npmjs.org/baseline-browser-mapping attempt 1 failed with ENOTFOUND
+299 http fetch GET https://registry.npmjs.org/loose-envify attempt 1 failed with ENOTFOUND
+300 http fetch GET https://registry.npmjs.org/autoprefixer attempt 1 failed with ENOTFOUND
+301 http fetch GET https://registry.npmjs.org/update-browserslist-db attempt 1 failed with ENOTFOUND
+302 http fetch GET https://registry.npmjs.org/browserslist attempt 1 failed with ENOTFOUND
+303 http fetch GET https://registry.npmjs.org/nanoid attempt 2 failed with ENOTFOUND
+304 http fetch GET https://registry.npmjs.org/typescript attempt 2 failed with ENOTFOUND
+305 http fetch GET https://registry.npmjs.org/semver attempt 2 failed with ENOTFOUND
+306 http fetch GET https://registry.npmjs.org/jiti attempt 2 failed with ENOTFOUND
+307 http fetch GET https://registry.npmjs.org/baseline-browser-mapping attempt 2 failed with ENOTFOUND
+308 http fetch GET https://registry.npmjs.org/loose-envify attempt 2 failed with ENOTFOUND
+309 http fetch GET https://registry.npmjs.org/autoprefixer attempt 2 failed with ENOTFOUND
+310 http fetch GET https://registry.npmjs.org/update-browserslist-db attempt 2 failed with ENOTFOUND
+311 http fetch GET https://registry.npmjs.org/browserslist attempt 2 failed with ENOTFOUND

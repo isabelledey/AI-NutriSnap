@@ -11,7 +11,7 @@ import { useTranslation } from '@/components/i18n/language-provider'
 type OnboardingStep = 'email' | 'verify' | 'profile'
 
 interface OnboardingWizardProps {
-  onComplete: (profile: UserProfile) => void
+  onComplete: (profile: UserProfile, options?: { isExistingUser?: boolean }) => void
 }
 
 export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
@@ -34,12 +34,16 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
     setStep('verify')
   }
 
-  const handleVerified = () => {
+  const handleVerified = (existingProfile: UserProfile | null) => {
+    if (existingProfile) {
+      onComplete(existingProfile, { isExistingUser: true })
+      return
+    }
     setStep('profile')
   }
 
   const handleProfileComplete = (profile: UserProfile) => {
-    onComplete({ ...profile, email, name })
+    onComplete({ ...profile, email, name }, { isExistingUser: false })
   }
 
   return (

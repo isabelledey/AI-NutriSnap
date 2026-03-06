@@ -122,7 +122,10 @@ export function Dashboard({ profile, onAddMeal }: DashboardProps) {
     }
 
     saveMealToLog(meal)
-    await syncMealToSupabase(profile.email, meal)
+    const syncedMeal = await syncMealToSupabase(profile.email, meal)
+    if (!syncedMeal) {
+      toast.error('Meal was saved locally but failed to sync to Supabase. Check console logs.')
+    }
     const updatedLog = getDailyLog()
     setDailyLog(updatedLog)
     setSuggestions((prev) => prev.filter((s) => s.name !== suggestion.name))
@@ -144,7 +147,10 @@ export function Dashboard({ profile, onAddMeal }: DashboardProps) {
     const timer = window.setTimeout(async () => {
       pendingDeleteTimers.current.delete(deleteKey)
       if (canceled || !mealToRemove.id) return
-      await removeMealFromSupabase(mealToRemove.id)
+      const removed = await removeMealFromSupabase(mealToRemove.id)
+      if (!removed) {
+        toast.error('Failed to delete meal from Supabase. Check console logs.')
+      }
     }, DELETE_UNDO_MS)
 
     pendingDeleteTimers.current.set(deleteKey, timer)
@@ -180,16 +186,26 @@ export function Dashboard({ profile, onAddMeal }: DashboardProps) {
     day: 'numeric',
   })
 
+  const getGreeting = () => {
+    const hour = new Date().getHours()
+    if (hour < 12) return 'Good morning'
+    if (hour < 18) return 'Good afternoon'
+    return 'Good evening'
+  }
+  
+  const greeting = getGreeting()
+
   return (
     <div className="flex min-h-[100dvh] flex-col bg-background px-6 pb-24 pt-20">
       {/* Header */}
-      <div className="mb-6 flex items-start justify-between gap-3">
-        <div>
-          <p className="text-sm text-muted-foreground">{today}</p>
-          <h1 className="text-2xl font-bold text-foreground">
-            {t('dashboard_greeting')}{profile.name ? `, ${profile.name}` : ''}!
-          </h1>
-        </div>
+      <div className="mb-6 flex flex-col justify-between gap-1">
+        <p className="text-sm font-medium text-muted-foreground">{today}</p>
+        <h1 className="text-2xl font-bold text-foreground">
+          {greeting}{profile.name ? `, ${profile.name}` : ''}!
+        </h1>
+        <p className="mt-1 text-sm text-muted-foreground leading-relaxed">
+          What's on the menu today? Let's check your meal and build a daily plan together.
+        </p>
       </div>
 
       {/* Calorie ring section */}

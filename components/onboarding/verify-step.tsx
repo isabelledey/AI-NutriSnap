@@ -7,11 +7,12 @@ import { ArrowLeft, ArrowRight, Loader2, ShieldCheck } from 'lucide-react'
 import { toast } from 'sonner'
 import { sendOTP, verifyOTP } from '@/lib/auth'
 import { useTranslation } from '@/components/i18n/language-provider'
+import type { UserProfile } from '@/lib/types'
 
 interface VerifyStepProps {
   email: string
   name: string
-  onVerified: () => void
+  onVerified: (profile: UserProfile | null) => void
   onBack: () => void
 }
 
@@ -36,9 +37,9 @@ export function VerifyStep({ email, name, onVerified, onBack }: VerifyStepProps)
 
     setLoading(true)
     try {
-      const success = await verifyOTP(email, code)
-      if (success) {
-        onVerified()
+      const result = await verifyOTP(email, code)
+      if (result.success) {
+        onVerified(result.profile)
       } else {
         setCode('')
       }
@@ -71,7 +72,7 @@ export function VerifyStep({ email, name, onVerified, onBack }: VerifyStepProps)
   }, [code])
 
   return (
-    <div className="flex flex-1 flex-col justify-center py-8">
+    <div className="flex flex-1 flex-col justify-center pb-8 pt-32">
       <div className="mb-8 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
         <ShieldCheck className="h-8 w-8 text-primary" />
       </div>

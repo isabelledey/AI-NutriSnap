@@ -95,15 +95,26 @@ export function clearAppSession(): void {
   keysToRemove.forEach((key) => localStorage.removeItem(key))
 }
 
-export async function syncProfileToSupabase(profile: UserProfile): Promise<void> {
+export async function syncProfileToSupabase(profile: UserProfile): Promise<boolean> {
   try {
-    await fetch('/api/profile', {
+    const res = await fetch('/api/profile', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(profile),
     })
+    const data = await res.json().catch(() => null)
+    if (!res.ok || !data?.success) {
+      console.error('[Supabase Sync] Failed to save profile', {
+        status: res.status,
+        statusText: res.statusText,
+        error: data?.message ?? 'Unknown API error',
+      })
+      return false
+    }
+    return true
   } catch {
-    // Keep local storage as fallback if network/db is unavailable.
+    console.error('[Supabase Sync] Failed to save profile: network or runtime error')
+    return false
   }
 }
 
@@ -112,11 +123,18 @@ export async function fetchDailyLogFromSupabase(email: string, date?: string): P
     const qs = new URLSearchParams({ email })
     if (date) qs.set('date', date)
     const res = await fetch(`/api/log?${qs.toString()}`)
-    if (!res.ok) return null
-    const data = await res.json()
-    if (!data.success) return null
+    const data = await res.json().catch(() => null)
+    if (!res.ok || !data?.success) {
+      console.error('[Supabase Sync] Failed to fetch daily log', {
+        status: res.status,
+        statusText: res.statusText,
+        error: data?.message ?? 'Unknown API error',
+      })
+      return null
+    }
     return data.log as DailyLog
   } catch {
+    console.error('[Supabase Sync] Failed to fetch daily log: network or runtime error')
     return null
   }
 }
@@ -132,11 +150,18 @@ export async function syncMealToSupabase(
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, meal, date }),
     })
-    if (!res.ok) return null
-    const data = await res.json()
-    if (!data.success) return null
+    const data = await res.json().catch(() => null)
+    if (!res.ok || !data?.success) {
+      console.error('[Supabase Sync] Failed to save meal log', {
+        status: res.status,
+        statusText: res.statusText,
+        error: data?.message ?? 'Unknown API error',
+      })
+      return null
+    }
     return data.meal as MealAnalysis
   } catch {
+    console.error('[Supabase Sync] Failed to save meal log: network or runtime error')
     return null
   }
 }
@@ -148,10 +173,18 @@ export async function removeMealFromSupabase(mealId: string): Promise<boolean> {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ mealId }),
     })
-    if (!res.ok) return false
-    const data = await res.json()
-    return Boolean(data.success)
+    const data = await res.json().catch(() => null)
+    if (!res.ok || !data?.success) {
+      console.error('[Supabase Sync] Failed to delete meal log', {
+        status: res.status,
+        statusText: res.statusText,
+        error: data?.message ?? 'Unknown API error',
+      })
+      return false
+    }
+    return true
   } catch {
+    console.error('[Supabase Sync] Failed to delete meal log: network or runtime error')
     return false
   }
 }

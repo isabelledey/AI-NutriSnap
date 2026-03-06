@@ -43,7 +43,7 @@ export function EmailStep({ onSubmit }: EmailStepProps) {
   }
 
   return (
-    <div className="flex flex-1 flex-col justify-center py-8">
+    <div className="flex flex-1 flex-col justify-center pb-8 pt-32">
       <div className="mb-8 flex h-16 w-16 items-center justify-center rounded-2xl bg-primary/10">
         <Mail className="h-8 w-8 text-primary" />
       </div>

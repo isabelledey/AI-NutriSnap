@@ -10,7 +10,7 @@ export async function DELETE(req: NextRequest) {
       return NextResponse.json({ success: false, message: 'Meal id is required' }, { status: 400 })
     }
 
-    const supabase = getSupabaseAdmin()
+    const supabase: any = getSupabaseAdmin()
     const { error } = await supabase.from('meals').delete().eq('id', mealId)
 
     if (error) {

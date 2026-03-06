@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Mail, ArrowRight, Loader2 } from 'lucide-react'
-import { toast } from 'sonner'
+import { sendOTP } from '@/lib/auth'
 
 interface EmailStepProps {
   onSubmit: (payload: { email: string; name: string }) => void
@@ -25,20 +25,12 @@ export function EmailStep({ onSubmit }: EmailStepProps) {
 
     setLoading(true)
     try {
-      const res = await fetch('/api/verify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      })
-      const data = await res.json()
-      if (data.success) {
-        toast.success('Verification code sent! Use 123456 for demo.')
+      const sent = await sendOTP(email, name)
+      if (sent) {
         onSubmit({ email, name: name.trim() })
-      } else {
-        toast.error(data.message || 'Failed to send code')
       }
     } catch {
-      toast.error('Something went wrong. Please try again.')
+      // handled in sendOTP
     } finally {
       setLoading(false)
     }

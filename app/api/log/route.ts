@@ -3,7 +3,7 @@ import { getSupabaseAdmin } from '@/lib/supabase-admin'
 import type { MealAnalysis } from '@/lib/types'
 
 async function getProfileIdByEmail(email: string) {
-  const supabase = getSupabaseAdmin()
+  const supabase: any = getSupabaseAdmin()
   const { data, error } = await supabase
     .from('profiles')
     .select('id')
@@ -15,7 +15,7 @@ async function getProfileIdByEmail(email: string) {
 }
 
 async function getOrCreateDailyLogId(profileId: string, logDate: string) {
-  const supabase = getSupabaseAdmin()
+  const supabase: any = getSupabaseAdmin()
   const { data: existing, error: existingError } = await supabase
     .from('daily_logs')
     .select('id')
@@ -71,7 +71,7 @@ export async function GET(req: NextRequest) {
       })
     }
 
-    const supabase = getSupabaseAdmin()
+    const supabase: any = getSupabaseAdmin()
     const { data: dailyLog, error: logError } = await supabase
       .from('daily_logs')
       .select('id')
@@ -133,7 +133,7 @@ export async function POST(req: NextRequest) {
     }
 
     const dailyLogId = await getOrCreateDailyLogId(profileId, date)
-    const supabase = getSupabaseAdmin()
+    const supabase: any = getSupabaseAdmin()
 
     const { data, error } = await supabase
       .from('meals')

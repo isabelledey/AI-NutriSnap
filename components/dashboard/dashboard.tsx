@@ -34,6 +34,13 @@ export function Dashboard({ profile, onAddMeal }: DashboardProps) {
         body: JSON.stringify({
           remainingCalories: remaining,
           preferences: profile.foodPreferences,
+          profile,
+          consumedToday: {
+            calories: consumed.calories,
+            protein: consumed.protein,
+            carbs: consumed.carbs,
+            fat: consumed.fat,
+          },
         }),
       })
       const data = await res.json()
@@ -45,7 +52,14 @@ export function Dashboard({ profile, onAddMeal }: DashboardProps) {
     } finally {
       setLoadingSuggestions(false)
     }
-  }, [remaining, profile.foodPreferences])
+  }, [
+    remaining,
+    profile,
+    consumed.calories,
+    consumed.protein,
+    consumed.carbs,
+    consumed.fat,
+  ])
 
   useEffect(() => {
     fetchSuggestions()

@@ -66,6 +66,7 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
         {step === 'verify' && (
           <VerifyStep
             email={email}
+            name={name}
             onVerified={handleVerified}
             onBack={() => setStep('email')}
           />

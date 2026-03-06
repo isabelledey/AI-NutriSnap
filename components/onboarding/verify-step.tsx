@@ -5,14 +5,16 @@ import { Button } from '@/components/ui/button'
 import { InputOTP, InputOTPGroup, InputOTPSlot } from '@/components/ui/input-otp'
 import { ArrowLeft, ArrowRight, Loader2, ShieldCheck } from 'lucide-react'
 import { toast } from 'sonner'
+import { sendOTP, verifyOTP } from '@/lib/auth'
 
 interface VerifyStepProps {
   email: string
+  name: string
   onVerified: () => void
   onBack: () => void
 }
 
-export function VerifyStep({ email, onVerified, onBack }: VerifyStepProps) {
+export function VerifyStep({ email, name, onVerified, onBack }: VerifyStepProps) {
   const [code, setCode] = useState('')
   const [loading, setLoading] = useState(false)
   const [countdown, setCountdown] = useState(30)
@@ -32,17 +34,10 @@ export function VerifyStep({ email, onVerified, onBack }: VerifyStepProps) {
 
     setLoading(true)
     try {
-      const res = await fetch('/api/verify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, code }),
-      })
-      const data = await res.json()
-      if (data.success) {
-        toast.success('Email verified!')
+      const success = await verifyOTP(email, code)
+      if (success) {
         onVerified()
       } else {
-        toast.error(data.message || 'Invalid code')
         setCode('')
       }
     } catch {
@@ -56,14 +51,13 @@ export function VerifyStep({ email, onVerified, onBack }: VerifyStepProps) {
     setCanResend(false)
     setCountdown(30)
     try {
-      await fetch('/api/verify', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      })
-      toast.success('New code sent!')
+      const sent = await sendOTP(email, name)
+      if (!sent) {
+        setCanResend(true)
+      }
     } catch {
       toast.error('Failed to resend code')
+      setCanResend(true)
     }
   }
 
@@ -103,11 +97,6 @@ export function VerifyStep({ email, onVerified, onBack }: VerifyStepProps) {
           </InputOTPGroup>
         </InputOTP>
       </div>
-
-      {/* Hint for demo */}
-      <p className="mb-6 text-center text-xs text-muted-foreground">
-        Demo hint: use code <span className="font-mono font-semibold text-primary">123456</span>
-      </p>
 
       {/* Resend */}
       <div className="mb-6 text-center">

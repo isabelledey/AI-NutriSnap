@@ -26,7 +26,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ success: false, message: 'Email is required' }, { status: 400 })
     }
 
-    const supabase = getSupabaseAdmin()
+    const supabase: any = getSupabaseAdmin()
     const { data, error } = await supabase
       .from('profiles')
       .select('*')
@@ -58,7 +58,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ success: false, message: 'Email is required' }, { status: 400 })
     }
 
-    const supabase = getSupabaseAdmin()
+    const supabase: any = getSupabaseAdmin()
     const { data, error } = await supabase
       .from('profiles')
       .upsert(

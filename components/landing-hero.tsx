@@ -1,10 +1,10 @@
-'use client'
+"use client";
 
-import { Button } from '@/components/ui/button'
-import { ArrowRight, Sparkles, User, Zap } from 'lucide-react'
+import { Button } from "@/components/ui/button";
+import { ArrowRight, Sparkles, User, Zap } from "lucide-react";
 
 interface LandingHeroProps {
-  onStart: () => void
+  onStart: () => void;
 }
 
 export function LandingHero({ onStart }: LandingHeroProps) {
@@ -44,7 +44,8 @@ export function LandingHero({ onStart }: LandingHeroProps) {
 
         {/* Subtitle */}
         <p className="mb-10 text-base leading-relaxed text-muted-foreground text-pretty">
-          Snap a photo of your dish. {"We'll"} count the calories and suggest what to eat next.
+          Snap a photo of your dish. {"We'll"} count the calories and suggest
+          what to eat next.
         </p>
 
         {/* CTA Button */}
@@ -74,5 +75,5 @@ export function LandingHero({ onStart }: LandingHeroProps) {
         </div>
       </div>
     </div>
-  )
+  );
 }

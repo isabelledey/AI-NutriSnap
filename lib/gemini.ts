@@ -13,6 +13,7 @@ export async function generateWithGemini(
     model?: string;
     responseMimeType?: string;
     systemPrompt?: string;
+    responseSchema?: Record<string, unknown>;
   },
 ): Promise<string> {
   const apiKey = process.env.GEMINI_API_KEY;
@@ -35,6 +36,9 @@ export async function generateWithGemini(
         generationConfig: {
           temperature: 0.2,
           responseMimeType: options?.responseMimeType,
+          ...(options?.responseSchema
+            ? { responseSchema: options.responseSchema }
+            : {}),
         },
       }),
     },

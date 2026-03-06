@@ -20,6 +20,17 @@ export interface MealAnalysis {
   timestamp?: string
 }
 
+export type ScanQuestion = {
+  id: string
+  text: string
+  options: string[]
+}
+
+export type ScanResult = {
+  is_food: boolean
+  questions: ScanQuestion[]
+}
+
 export interface MealSuggestion {
   name: string
   description: string

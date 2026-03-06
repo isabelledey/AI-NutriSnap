@@ -16,12 +16,11 @@ import { useTranslation } from '@/components/i18n/language-provider'
 interface DashboardProps {
   profile: UserProfile
   onAddMeal: () => void
-  onLogout: () => void
 }
 
 const DELETE_UNDO_MS = 5000
 
-export function Dashboard({ profile, onAddMeal, onLogout }: DashboardProps) {
+export function Dashboard({ profile, onAddMeal }: DashboardProps) {
   const { t } = useTranslation()
   const [dailyLog, setDailyLog] = useState<DailyLog>(getDailyLog())
   const [suggestions, setSuggestions] = useState<MealSuggestion[]>([])
@@ -182,7 +181,7 @@ export function Dashboard({ profile, onAddMeal, onLogout }: DashboardProps) {
   })
 
   return (
-    <div className="flex min-h-[100dvh] flex-col bg-background px-6 pb-24 pt-6">
+    <div className="flex min-h-[100dvh] flex-col bg-background px-6 pb-24 pt-20">
       {/* Header */}
       <div className="mb-6 flex items-start justify-between gap-3">
         <div>
@@ -191,9 +190,6 @@ export function Dashboard({ profile, onAddMeal, onLogout }: DashboardProps) {
             {t('dashboard_greeting')}{profile.name ? `, ${profile.name}` : ''}!
           </h1>
         </div>
-        <Button variant="outline" onClick={onLogout} className="rounded-xl">
-          {t('logout')}
-        </Button>
       </div>
 
       {/* Calorie ring section */}

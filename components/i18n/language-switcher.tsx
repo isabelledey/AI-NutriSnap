@@ -2,14 +2,27 @@
 
 import { useTranslation } from '@/components/i18n/language-provider'
 import type { Language } from '@/lib/i18n/dictionary'
+import { cn } from '@/lib/utils'
 
 const LANGS: Language[] = ['en', 'he', 'ru']
 
-export function LanguageSwitcher() {
+interface LanguageSwitcherProps {
+  className?: string
+  inMenu?: boolean
+}
+
+export function LanguageSwitcher({ className, inMenu = false }: LanguageSwitcherProps) {
   const { language, setLanguage } = useTranslation()
 
   return (
-    <div className="absolute top-4 right-4 z-[70] rounded-xl border border-border bg-background/95 p-1 shadow-sm backdrop-blur">
+    <div
+      className={cn(
+        inMenu
+          ? 'rounded-xl border border-border bg-background p-1'
+          : 'absolute top-4 right-4 z-[70] rounded-xl border border-border bg-background/95 p-1 shadow-sm backdrop-blur',
+        className,
+      )}
+    >
       <div className="flex items-center gap-1">
         {LANGS.map((lang) => {
           const active = language === lang

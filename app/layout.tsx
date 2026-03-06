@@ -4,7 +4,6 @@ import { Toaster } from 'sonner'
 import { Analytics } from '@vercel/analytics/next'
 import { Footer } from '@/components/footer'
 import { LanguageProvider } from '@/components/i18n/language-provider'
-import { LanguageSwitcher } from '@/components/i18n/language-switcher'
 import './globals.css'
 
 const _geist = Geist({ subsets: ["latin"] });
@@ -51,7 +50,6 @@ export default function RootLayout({
       <body className="font-sans antialiased">
         <LanguageProvider>
           <div className="relative mx-auto flex min-h-screen w-full max-w-md flex-col">
-            <LanguageSwitcher />
             <div className="flex-1">{children}</div>
             <Footer />
           </div>

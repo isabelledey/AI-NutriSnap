@@ -39,7 +39,7 @@ export function MealAnalysisDisplay({
   const totalMacroGrams = analysis.protein + analysis.carbs + analysis.fat
 
   return (
-    <div className="flex min-h-[100dvh] flex-col bg-background px-6 py-6">
+    <div className="flex min-h-[100dvh] flex-col bg-background px-6 pb-6 pt-20">
       {/* Header */}
       <div className="mb-6">
         <h2 className="text-2xl font-bold text-foreground">{analysis.name}</h2>

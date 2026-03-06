@@ -20,6 +20,7 @@ import { PhotoCapture } from '@/components/photo-capture'
 import { MealAnalysisDisplay } from '@/components/meal-analysis'
 import { OnboardingWizard } from '@/components/onboarding/onboarding-wizard'
 import { Dashboard } from '@/components/dashboard/dashboard'
+import { AppHeader } from '@/components/app-header'
 import { toast } from 'sonner'
 import { useTranslation } from '@/components/i18n/language-provider'
 
@@ -30,7 +31,6 @@ export default function Home() {
   const [profile, setProfile] = useState<UserProfile | null>(null)
   const [currentAnalysis, setCurrentAnalysis] = useState<MealAnalysis | null>(null)
   const [currentImage, setCurrentImage] = useState<string | null>(null)
-  const [isAnalyzing, setIsAnalyzing] = useState(false)
 
   // Check if user is already onboarded
   useEffect(() => {
@@ -47,45 +47,17 @@ export default function Home() {
     setStep('photo')
   }
 
-  const runAnalysis = async (realBase64String: string) => {
-    setIsAnalyzing(true)
-
-    try {
-      console.log('First 50 chars of image:', realBase64String.substring(0, 50))
-      const res = await fetch('/api/analyze', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ image: realBase64String }),
-      })
-      const data = await res.json()
-
-      if (data.success) {
-        setCurrentAnalysis(data.analysis)
-        setStep('analysis')
-      } else {
-        toast.error(t('analysis_failed'))
-        setStep('photo')
-      }
-    } catch {
-      toast.error(t('generic_error'))
-      setStep('photo')
-    } finally {
-      setIsAnalyzing(false)
-    }
+  const handleMealAnalyzed = (analysis: MealAnalysis, imageDataUrl: string) => {
+    setCurrentImage(imageDataUrl)
+    setCurrentAnalysis(analysis)
+    setStep('analysis')
   }
 
-  const handlePhotoCapture = async (realBase64String: string) => {
-    setCurrentImage(realBase64String)
-    await runAnalysis(realBase64String)
-  }
-
-  const handleAnalyzeAgain = async () => {
+  const handleAnalyzeAgain = () => {
     if (!currentImage) {
       toast.error(t('no_meal_image'))
-      setStep('photo')
-      return
     }
-    await runAnalysis(currentImage)
+    setStep('photo')
   }
 
   const handleAnalysisContinue = async () => {
@@ -147,20 +119,32 @@ export default function Home() {
     setProfile(null)
     setCurrentAnalysis(null)
     setCurrentImage(null)
-    setIsAnalyzing(false)
     setStep('landing')
     router.replace('/')
   }
 
+  const headerBackAction =
+    step === 'photo'
+      ? () => setStep(profile ? 'dashboard' : 'landing')
+      : undefined
+
+  const showHeaderLogout = step === 'analysis' || step === 'dashboard' || step === 'photo'
+
   return (
     <main className="mx-auto min-h-[100dvh] max-w-md">
+      <AppHeader
+        onLogout={handleLogout}
+        showLogout={showHeaderLogout}
+        onGoBack={headerBackAction}
+      />
+
       {step === 'landing' && <LandingHero onStart={handleStart} />}
 
       {step === 'photo' && (
         <PhotoCapture
-          onCapture={handlePhotoCapture}
+          onMealAnalyzed={handleMealAnalyzed}
           onBack={() => setStep(profile ? 'dashboard' : 'landing')}
-          isAnalyzing={isAnalyzing}
+          initialImageDataUrl={currentImage}
         />
       )}
 
@@ -170,7 +154,6 @@ export default function Home() {
           imageUrl={currentImage || undefined}
           onContinue={handleAnalysisContinue}
           onAnalyzeAgain={handleAnalyzeAgain}
-          isAnalyzing={isAnalyzing}
         />
       )}
 
@@ -179,7 +162,7 @@ export default function Home() {
       )}
 
       {step === 'dashboard' && profile && (
-        <Dashboard profile={profile} onAddMeal={handleAddMeal} onLogout={handleLogout} />
+        <Dashboard profile={profile} onAddMeal={handleAddMeal} />
       )}
     </main>
   )

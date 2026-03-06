@@ -22,6 +22,7 @@ import { AppHeader } from '@/components/app-header'
 import { toast } from 'sonner'
 import { useTranslation } from '@/components/i18n/language-provider'
 import { createClient } from '@/lib/supabase/client'
+import type { AuthMode } from '@/lib/auth'
 
 interface ClientAppProps {
   initialStep: AppStep
@@ -35,6 +36,7 @@ export function ClientApp({ initialStep, initialProfile }: ClientAppProps) {
   const [profile, setProfile] = useState<UserProfile | null>(initialProfile)
   const [currentAnalysis, setCurrentAnalysis] = useState<MealAnalysis | null>(null)
   const [currentImage, setCurrentImage] = useState<string | null>(null)
+  const [authMode, setAuthMode] = useState<AuthMode>('signup')
 
   // Sync profile locally if provided by server
   useEffect(() => {
@@ -45,6 +47,11 @@ export function ClientApp({ initialStep, initialProfile }: ClientAppProps) {
 
   const handleStart = () => {
     setStep('photo')
+  }
+
+  const handleSignInFromLanding = () => {
+    setAuthMode('signin')
+    setStep('onboarding-email')
   }
 
   const handleMealAnalyzed = (analysis: MealAnalysis, imageDataUrl: string) => {
@@ -84,6 +91,7 @@ export function ClientApp({ initialStep, initialProfile }: ClientAppProps) {
       setStep('dashboard')
     } else {
       // Need to onboard first
+      setAuthMode('signup')
       setStep('onboarding-email')
     }
   }
@@ -159,7 +167,7 @@ export function ClientApp({ initialStep, initialProfile }: ClientAppProps) {
         onGoBack={headerBackAction}
       />
 
-      {step === 'landing' && <LandingHero onStart={handleStart} />}
+      {step === 'landing' && <LandingHero onStart={handleStart} onSignIn={handleSignInFromLanding} />}
 
       {step === 'photo' && (
         <PhotoCapture
@@ -179,7 +187,7 @@ export function ClientApp({ initialStep, initialProfile }: ClientAppProps) {
       )}
 
       {(step === 'onboarding-email' || step === 'onboarding-verify' || step === 'onboarding-profile') && (
-        <OnboardingWizard onComplete={handleOnboardingComplete} />
+        <OnboardingWizard mode={authMode} onComplete={handleOnboardingComplete} />
       )}
 
       {step === 'dashboard' && profile && (

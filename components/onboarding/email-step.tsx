@@ -9,12 +9,15 @@ import { Mail, ArrowRight, Loader2 } from 'lucide-react'
 import { sendOTP } from '@/lib/auth'
 import { TermsModal } from '@/components/legal/terms-modal'
 import { useTranslation } from '@/components/i18n/language-provider'
+import type { AuthMode } from '@/lib/auth'
+import { toast } from 'sonner'
 
 interface EmailStepProps {
+  mode: AuthMode
   onSubmit: (payload: { email: string; name: string }) => void
 }
 
-export function EmailStep({ onSubmit }: EmailStepProps) {
+export function EmailStep({ mode, onSubmit }: EmailStepProps) {
   const { t } = useTranslation()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -22,21 +25,23 @@ export function EmailStep({ onSubmit }: EmailStepProps) {
   const [agreedToTerms, setAgreedToTerms] = useState(false)
   const [termsOpen, setTermsOpen] = useState(false)
 
-  const isValidName = name.trim().length >= 2
+  const isSignUp = mode === 'signup'
+  const isValidName = !isSignUp || name.trim().length >= 2
   const isValidEmail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!isValidName || !isValidEmail || !agreedToTerms) return
+    if (!isValidName || !isValidEmail || (isSignUp && !agreedToTerms)) return
 
     setLoading(true)
     try {
-      const sent = await sendOTP(email, name)
+      const sent = await sendOTP(email, name, mode)
       if (sent) {
         onSubmit({ email, name: name.trim() })
       }
-    } catch {
-      // handled in sendOTP
+    } catch (error) {
+      console.error('[Sign In] Failed to get OTP code:', error)
+      toast.error('Failed to send verification code. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -48,27 +53,33 @@ export function EmailStep({ onSubmit }: EmailStepProps) {
         <Mail className="h-8 w-8 text-primary" />
       </div>
 
-      <h2 className="mb-2 text-2xl font-bold text-foreground">{t('email_title')}</h2>
+      <h2 className="mb-2 text-2xl font-bold text-foreground">
+        {isSignUp ? t('email_title') : 'Sign in with your email'}
+      </h2>
       <p className="mb-8 text-sm text-muted-foreground leading-relaxed">
-        {t('email_subtitle')}
+        {isSignUp
+          ? t('email_subtitle')
+          : 'Enter your registered email and we will send your 6-digit sign-in code.'}
       </p>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <div className="flex flex-col gap-2">
-          <Label htmlFor="name" className="text-sm font-medium text-foreground">
-            {t('full_name')}
-          </Label>
-          <Input
-            id="name"
-            type="text"
-            placeholder={t('name_placeholder')}
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="h-12 rounded-xl text-base"
-            autoFocus
-            autoComplete="name"
-          />
-        </div>
+        {isSignUp && (
+          <div className="flex flex-col gap-2">
+            <Label htmlFor="name" className="text-sm font-medium text-foreground">
+              {t('full_name')}
+            </Label>
+            <Input
+              id="name"
+              type="text"
+              placeholder={t('name_placeholder')}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="h-12 rounded-xl text-base"
+              autoFocus
+              autoComplete="name"
+            />
+          </div>
+        )}
 
         <div className="flex flex-col gap-2">
           <Label htmlFor="email" className="text-sm font-medium text-foreground">
@@ -81,42 +92,45 @@ export function EmailStep({ onSubmit }: EmailStepProps) {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             className="h-12 rounded-xl text-base"
+            autoFocus={!isSignUp}
             autoComplete="email"
           />
         </div>
 
-        <div className="flex items-start gap-3 rounded-xl border border-border bg-card p-3">
-          <Checkbox
-            id="terms"
-            checked={agreedToTerms}
-            onCheckedChange={(checked) => setAgreedToTerms(Boolean(checked))}
-            className="mt-0.5"
-          />
-          <Label htmlFor="terms" className="text-sm font-normal leading-relaxed text-muted-foreground">
-            {t('terms_agree_prefix')}{' '}
-            <button
-              type="button"
-              onClick={(e) => {
-                e.preventDefault()
-                setTermsOpen(true)
-              }}
-              className="font-medium text-foreground underline underline-offset-4"
-            >
-              {t('terms_agree_link')}
-            </button>
-            {t('terms_agree_suffix')}
-          </Label>
-        </div>
+        {isSignUp && (
+          <div className="flex items-start gap-3 rounded-xl border border-border bg-card p-3">
+            <Checkbox
+              id="terms"
+              checked={agreedToTerms}
+              onCheckedChange={(checked) => setAgreedToTerms(Boolean(checked))}
+              className="mt-0.5"
+            />
+            <Label htmlFor="terms" className="text-sm font-normal leading-relaxed text-muted-foreground">
+              {t('terms_agree_prefix')}{' '}
+              <button
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault()
+                  setTermsOpen(true)
+                }}
+                className="font-medium text-foreground underline underline-offset-4"
+              >
+                {t('terms_agree_link')}
+              </button>
+              {t('terms_agree_suffix')}
+            </Label>
+          </div>
+        )}
 
         <Button
           type="submit"
-          disabled={!isValidName || !isValidEmail || !agreedToTerms || loading}
+          disabled={!isValidName || !isValidEmail || (isSignUp && !agreedToTerms) || loading}
           className="mt-2 h-14 w-full rounded-2xl text-base font-semibold shadow-lg shadow-primary/20"
         >
           {loading ? (
             <>
               <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-              {t('sending_code')}
+              {isSignUp ? t('sending_code') : 'Loading...'}
             </>
           ) : (
             <>
@@ -127,7 +141,7 @@ export function EmailStep({ onSubmit }: EmailStepProps) {
         </Button>
       </form>
 
-      <TermsModal open={termsOpen} onOpenChange={setTermsOpen} />
+      {isSignUp && <TermsModal open={termsOpen} onOpenChange={setTermsOpen} />}
     </div>
   )
 }

@@ -2,7 +2,15 @@
 
 import { useState, useEffect, useCallback, useRef } from 'react'
 import type { UserProfile, DailyLog, MealSuggestion, MealAnalysis } from '@/lib/types'
-import { getDailyLog, saveDailyLog, saveMealToLog, fetchDailyLogFromSupabase, syncMealToSupabase, removeMealFromSupabase } from '@/lib/store'
+import {
+  getDailyLog,
+  saveDailyLog,
+  saveMealToLog,
+  fetchDailyLogFromSupabase,
+  syncMealToSupabase,
+  removeMealFromSupabase,
+  fetchTodayCaloriesFromSupabase,
+} from '@/lib/store'
 import { getTotalConsumed, calculateRemainingCalories } from '@/lib/nutrition'
 import { CalorieRing } from './calorie-ring'
 import { MealCard } from './meal-card'
@@ -23,12 +31,26 @@ const DELETE_UNDO_MS = 5000
 export function Dashboard({ profile, onAddMeal }: DashboardProps) {
   const { t } = useTranslation()
   const [dailyLog, setDailyLog] = useState<DailyLog>(getDailyLog())
+  const [todayCalories, setTodayCalories] = useState(0)
+  const [loadingTodayCalories, setLoadingTodayCalories] = useState(true)
   const [suggestions, setSuggestions] = useState<MealSuggestion[]>([])
   const [loadingSuggestions, setLoadingSuggestions] = useState(false)
   const pendingDeleteTimers = useRef<Map<string, number>>(new Map())
 
   const consumed = getTotalConsumed(dailyLog.meals)
-  const remaining = calculateRemainingCalories(profile.dailyCalorieTarget, consumed.calories)
+  const effectiveConsumedCalories = todayCalories > 0 ? todayCalories : consumed.calories
+  const remaining = calculateRemainingCalories(profile.dailyCalorieTarget, effectiveConsumedCalories)
+
+  const fetchTodayCalories = useCallback(async () => {
+    setLoadingTodayCalories(true)
+    const startOfDay = new Date()
+    startOfDay.setHours(0, 0, 0, 0)
+    const value = await fetchTodayCaloriesFromSupabase(profile.email, startOfDay.toISOString())
+    if (typeof value === 'number') {
+      setTodayCalories(value)
+    }
+    setLoadingTodayCalories(false)
+  }, [profile.email])
 
   const fetchSuggestions = useCallback(async () => {
     setLoadingSuggestions(true)
@@ -41,7 +63,7 @@ export function Dashboard({ profile, onAddMeal }: DashboardProps) {
           preferences: profile.foodPreferences,
           profile,
           consumedToday: {
-            calories: consumed.calories,
+            calories: effectiveConsumedCalories,
             protein: consumed.protein,
             carbs: consumed.carbs,
             fat: consumed.fat,
@@ -61,7 +83,7 @@ export function Dashboard({ profile, onAddMeal }: DashboardProps) {
   }, [
     remaining,
     profile,
-    consumed.calories,
+    effectiveConsumedCalories,
     consumed.protein,
     consumed.carbs,
     consumed.fat,
@@ -71,6 +93,10 @@ export function Dashboard({ profile, onAddMeal }: DashboardProps) {
   useEffect(() => {
     fetchSuggestions()
   }, [fetchSuggestions])
+
+  useEffect(() => {
+    void fetchTodayCalories()
+  }, [fetchTodayCalories, dailyLog.meals.length])
 
   useEffect(() => {
     let ignore = false
@@ -210,7 +236,28 @@ export function Dashboard({ profile, onAddMeal }: DashboardProps) {
 
       {/* Calorie ring section */}
       <div className="mb-6 flex flex-col items-center">
-        <CalorieRing consumed={consumed.calories} target={profile.dailyCalorieTarget} />
+        {loadingTodayCalories ? (
+          <Card className="w-full max-w-xs animate-pulse rounded-2xl border-border bg-muted p-12" />
+        ) : todayCalories > 0 ? (
+          <>
+            <CalorieRing consumed={todayCalories} target={profile.dailyCalorieTarget} />
+            <Button
+              onClick={onAddMeal}
+              variant="outline"
+              className="mt-4 rounded-xl text-sm font-medium"
+            >
+              Log another meal
+            </Button>
+          </>
+        ) : (
+          <Card className="w-full max-w-sm rounded-2xl border-border bg-card p-6 text-center">
+            <p className="mb-2 text-sm text-muted-foreground">No calories logged yet today.</p>
+            <Button onClick={onAddMeal} className="rounded-xl">
+              <Camera className="mr-2 h-4 w-4" />
+              {t('upload_image')}
+            </Button>
+          </Card>
+        )}
 
         {/* Macro summary */}
         <div className="mt-4 grid w-full max-w-xs grid-cols-2 gap-3">
@@ -267,6 +314,7 @@ export function Dashboard({ profile, onAddMeal }: DashboardProps) {
           <Card className="flex flex-col items-center gap-2 rounded-2xl border-border bg-card p-6 text-center">
             <p className="text-sm text-muted-foreground">
               {consumed.calories >= profile.dailyCalorieTarget
+                || todayCalories >= profile.dailyCalorieTarget
                 ? t('goal_reached')
                 : t('no_suggestions')}
             </p>
@@ -280,17 +328,6 @@ export function Dashboard({ profile, onAddMeal }: DashboardProps) {
         )}
       </div>
 
-      {/* Floating add meal button */}
-      <div className="fixed right-6 bottom-6 z-50">
-        <Button
-          onClick={onAddMeal}
-          className="h-14 w-14 rounded-2xl shadow-lg shadow-primary/30"
-          size="icon"
-        >
-          <Camera className="h-6 w-6" />
-          <span className="sr-only">Add new meal</span>
-        </Button>
-      </div>
     </div>
   )
 }

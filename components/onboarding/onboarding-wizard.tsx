@@ -7,23 +7,30 @@ import { ProfileStep } from './profile-step'
 import { Progress } from '@/components/ui/progress'
 import type { UserProfile } from '@/lib/types'
 import { useTranslation } from '@/components/i18n/language-provider'
+import type { AuthMode } from '@/lib/auth'
 
 type OnboardingStep = 'email' | 'verify' | 'profile'
 
 interface OnboardingWizardProps {
+  mode: AuthMode
   onComplete: (profile: UserProfile, options?: { isExistingUser?: boolean }) => void
 }
 
-export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
+export function OnboardingWizard({ mode, onComplete }: OnboardingWizardProps) {
   const { t } = useTranslation()
   const [step, setStep] = useState<OnboardingStep>('email')
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
-  const steps: { key: OnboardingStep; label: string }[] = [
+  const signUpSteps: { key: OnboardingStep; label: string }[] = [
     { key: 'email', label: t('onboarding_step_email') },
     { key: 'verify', label: t('onboarding_step_verify') },
     { key: 'profile', label: t('onboarding_step_profile') },
   ]
+  const signInSteps: { key: OnboardingStep; label: string }[] = [
+    { key: 'email', label: t('onboarding_step_email') },
+    { key: 'verify', label: t('onboarding_step_verify') },
+  ]
+  const steps = mode === 'signup' ? signUpSteps : signInSteps
 
   const currentIndex = steps.findIndex((s) => s.key === step)
   const progressValue = ((currentIndex + 1) / steps.length) * 100
@@ -37,6 +44,10 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
   const handleVerified = (existingProfile: UserProfile | null) => {
     if (existingProfile) {
       onComplete(existingProfile, { isExistingUser: true })
+      return
+    }
+    if (mode === 'signin') {
+      setStep('email')
       return
     }
     setStep('profile')
@@ -67,16 +78,17 @@ export function OnboardingWizard({ onComplete }: OnboardingWizardProps) {
 
       {/* Step content */}
       <div className="flex flex-1 flex-col">
-        {step === 'email' && <EmailStep onSubmit={handleEmailSubmit} />}
+        {step === 'email' && <EmailStep mode={mode} onSubmit={handleEmailSubmit} />}
         {step === 'verify' && (
           <VerifyStep
+            mode={mode}
             email={email}
             name={name}
             onVerified={handleVerified}
             onBack={() => setStep('email')}
           />
         )}
-        {step === 'profile' && <ProfileStep onComplete={handleProfileComplete} />}
+        {mode === 'signup' && step === 'profile' && <ProfileStep onComplete={handleProfileComplete} />}
       </div>
     </div>
   )

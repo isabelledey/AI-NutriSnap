@@ -5,10 +5,11 @@ import { ArrowRight, Sparkles, User, Zap } from "lucide-react";
 import { useTranslation } from '@/components/i18n/language-provider'
 
 interface LandingHeroProps {
-  onStart: () => void;
+  onStart: () => void
+  onSignIn: () => void
 }
 
-export function LandingHero({ onStart }: LandingHeroProps) {
+export function LandingHero({ onStart, onSignIn }: LandingHeroProps) {
   const { t } = useTranslation()
   return (
     <div className="relative flex min-h-[100dvh] flex-col items-center justify-center overflow-hidden bg-background px-6 py-12">
@@ -58,6 +59,14 @@ export function LandingHero({ onStart }: LandingHeroProps) {
           {t('landing_start')}
           <ArrowRight className="ml-1 h-5 w-5" />
         </Button>
+
+        <button
+          type="button"
+          onClick={onSignIn}
+          className="mt-3 text-sm font-medium text-muted-foreground underline underline-offset-4 transition-colors hover:text-foreground"
+        >
+          or sign in
+        </button>
 
         {/* Trust badges */}
         <div className="mt-8 flex flex-wrap items-center justify-center gap-3">

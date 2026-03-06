@@ -23,6 +23,7 @@ import { AppHeader } from '@/components/app-header'
 import { toast } from 'sonner'
 import { useTranslation } from '@/components/i18n/language-provider'
 import { createClient } from '@/lib/supabase/client'
+import type { AuthMode } from '@/lib/auth'
 
 interface HomePageClientProps {
   initialSessionEmail: string | null
@@ -35,6 +36,7 @@ export function HomePageClient({ initialSessionEmail }: HomePageClientProps) {
   const [profile, setProfile] = useState<UserProfile | null>(null)
   const [currentAnalysis, setCurrentAnalysis] = useState<MealAnalysis | null>(null)
   const [currentImage, setCurrentImage] = useState<string | null>(null)
+  const [authMode, setAuthMode] = useState<AuthMode>('signup')
 
   useEffect(() => {
     let ignore = false
@@ -95,6 +97,11 @@ export function HomePageClient({ initialSessionEmail }: HomePageClientProps) {
     setStep('photo')
   }
 
+  const handleSignInFromLanding = () => {
+    setAuthMode('signin')
+    setStep('onboarding-email')
+  }
+
   const handleMealAnalyzed = (analysis: MealAnalysis, imageDataUrl: string) => {
     setCurrentImage(imageDataUrl)
     setCurrentAnalysis(analysis)
@@ -152,6 +159,7 @@ export function HomePageClient({ initialSessionEmail }: HomePageClientProps) {
       }
     }
 
+    setAuthMode('signup')
     setStep('onboarding-email')
   }
 
@@ -213,7 +221,7 @@ export function HomePageClient({ initialSessionEmail }: HomePageClientProps) {
     <main className="mx-auto min-h-[100dvh] max-w-md">
       <AppHeader onLogout={handleLogout} showLogout={showHeaderLogout} onGoBack={headerBackAction} />
 
-      {step === 'landing' && <LandingHero onStart={handleStart} />}
+      {step === 'landing' && <LandingHero onStart={handleStart} onSignIn={handleSignInFromLanding} />}
 
       {step === 'photo' && (
         <PhotoCapture
@@ -233,7 +241,7 @@ export function HomePageClient({ initialSessionEmail }: HomePageClientProps) {
       )}
 
       {(step === 'onboarding-email' || step === 'onboarding-verify' || step === 'onboarding-profile') && (
-        <OnboardingWizard onComplete={handleOnboardingComplete} />
+        <OnboardingWizard mode={authMode} onComplete={handleOnboardingComplete} />
       )}
 
       {step === 'dashboard' && profile && <Dashboard profile={profile} onAddMeal={handleAddMeal} />}

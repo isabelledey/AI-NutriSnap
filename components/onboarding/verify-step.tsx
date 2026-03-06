@@ -8,15 +8,17 @@ import { toast } from 'sonner'
 import { sendOTP, verifyOTP } from '@/lib/auth'
 import { useTranslation } from '@/components/i18n/language-provider'
 import type { UserProfile } from '@/lib/types'
+import type { AuthMode } from '@/lib/auth'
 
 interface VerifyStepProps {
+  mode: AuthMode
   email: string
   name: string
   onVerified: (profile: UserProfile | null) => void
   onBack: () => void
 }
 
-export function VerifyStep({ email, name, onVerified, onBack }: VerifyStepProps) {
+export function VerifyStep({ mode, email, name, onVerified, onBack }: VerifyStepProps) {
   const { t } = useTranslation()
   const [code, setCode] = useState('')
   const [loading, setLoading] = useState(false)
@@ -54,7 +56,7 @@ export function VerifyStep({ email, name, onVerified, onBack }: VerifyStepProps)
     setCanResend(false)
     setCountdown(30)
     try {
-      const sent = await sendOTP(email, name)
+      const sent = await sendOTP(email, name, mode)
       if (!sent) {
         setCanResend(true)
       }

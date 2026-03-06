@@ -188,3 +188,23 @@ export async function removeMealFromSupabase(mealId: string): Promise<boolean> {
     return false
   }
 }
+
+export async function fetchTodayCaloriesFromSupabase(email: string, startIso: string): Promise<number | null> {
+  try {
+    const qs = new URLSearchParams({ email, start: startIso })
+    const res = await fetch(`/api/log/today?${qs.toString()}`)
+    const data = await res.json().catch(() => null)
+    if (!res.ok || !data?.success) {
+      console.error('[Supabase Sync] Failed to fetch today calories', {
+        status: res.status,
+        statusText: res.statusText,
+        error: data?.message ?? 'Unknown API error',
+      })
+      return null
+    }
+    return Number(data.todayCalories) || 0
+  } catch {
+    console.error('[Supabase Sync] Failed to fetch today calories: network or runtime error')
+    return null
+  }
+}

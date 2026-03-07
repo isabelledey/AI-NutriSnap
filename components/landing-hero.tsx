@@ -31,17 +31,24 @@ export function LandingHero({ onStart, onSignIn }: LandingHeroProps) {
             <p className="mb-10 max-w-xl text-xl leading-relaxed text-slate-600">
               Snap a photo, track your nutrition, and discover healthy meals effortlessly. Achieve your wellness goals with the power of computer vision.
             </p>
-            <div className="flex flex-col gap-4 sm:flex-row">
-              <button
-                onClick={onStart}
-                className="flex transform items-center justify-center gap-2 rounded-lg bg-emerald-500 px-8 py-4 text-lg font-bold text-white shadow-xl shadow-emerald-500/20 transition-all hover:scale-105 hover:bg-emerald-600"
-              >
-                <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                  <path clipRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" fillRule="evenodd" />
-                </svg>
-                Try Your Assistant
-              </button>
-            </div>
+            <div className="mt-8 flex w-full flex-col items-center justify-center gap-3">
+  <button
+    onClick={onStart}
+    className="flex transform items-center justify-center gap-2 rounded-lg bg-emerald-500 px-8 py-4 text-lg font-bold text-white shadow-xl shadow-emerald-500/20 transition-all hover:scale-105 hover:bg-emerald-600"
+  >
+    <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+      <path clipRule="evenodd" d="M11.3 1.046A1 1 0 0112 2v5h4a1 1 0 01.82 1.573l-7 10A1 1 0 018 18v-5H4a1 1 0 01-.82-1.573l7-10a1 1 0 011.12-.38z" fillRule="evenodd" />
+    </svg>
+    Try Your Assistant
+  </button>
+  
+  <p className="text-center text-sm text-slate-500">
+    Already have an account?{' '}
+    <button onClick={onSignIn} className="font-semibold text-slate-500 underline transition-colors hover:text-emerald-500">
+      Login
+    </button>
+  </p>
+</div>
           </div>
           
           {/* Hero Visual */}

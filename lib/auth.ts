@@ -24,6 +24,37 @@ type ProfileLookupResult = {
   profile: UserProfile | null
 }
 
+async function waitForSupabaseSession(supabase: ReturnType<typeof createClient>, attempts = 6): Promise<boolean> {
+  for (let attempt = 0; attempt < attempts; attempt += 1) {
+    const {
+      data: { session },
+    } = await supabase.auth.getSession()
+
+    if (session) {
+      return true
+    }
+
+    await new Promise((resolve) => window.setTimeout(resolve, 250))
+  }
+
+  return false
+}
+
+async function ensureOtpAuthUser(email: string, name: string): Promise<void> {
+  const res = await fetch('/api/auth/ensure-otp-user', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email, name }),
+  })
+
+  const data = await res.json().catch(() => null)
+  if (!res.ok || !data?.success) {
+    throw new Error(data?.message || 'Failed to prepare your sign-in account.')
+  }
+}
+
 async function fetchProfileByEmail(email: string): Promise<ProfileLookupResult> {
   const res = await fetch(`/api/profile?email=${encodeURIComponent(email)}`, {
     cache: 'no-store',
@@ -102,6 +133,10 @@ export async function sendOTP(email: string, name: string, mode: AuthMode = 'sig
       toast.success(`Dev Mode: enter ${DEMO_OTP}`)
       return true
     }
+
+    if (mode === 'signin' && profileLookup.exists) {
+      await ensureOtpAuthUser(normalizedEmail, profileLookup.profile?.name || trimmedName)
+    }
   } catch (error) {
     console.error('[AUTH DEBUG]', error)
     if (error instanceof Error) {
@@ -174,7 +209,10 @@ export async function verifyOTP(email: string, code: string): Promise<VerifyOtpR
   } else {
     const supabase = createClient()
     try {
-      const { error } = await supabase.auth.verifyOtp({
+      const {
+        data: { session },
+        error,
+      } = await supabase.auth.verifyOtp({
         email: normalizedEmail,
         token,
         type: 'email',
@@ -182,6 +220,15 @@ export async function verifyOTP(email: string, code: string): Promise<VerifyOtpR
 
       if (error) {
         throw error
+      }
+
+      if (!session) {
+        const hasSession = await waitForSupabaseSession(supabase)
+        if (!hasSession) {
+          console.error('[Auth] verifyOtp succeeded but no Supabase session cookie was established.')
+          toast.error('Verification succeeded, but your session is still syncing. Please try again.')
+          return { success: false, profile: null }
+        }
       }
     } catch (error) {
       const authError = error as { message?: string; status?: number }
@@ -193,16 +240,6 @@ export async function verifyOTP(email: string, code: string): Promise<VerifyOtpR
       }
 
       toast.error(authError.message || 'Invalid verification code.')
-      return { success: false, profile: null }
-    }
-
-    const {
-      data: { session },
-    } = await supabase.auth.getSession()
-
-    if (!session) {
-      console.error('[Auth] verifyOtp succeeded but no Supabase session cookie was established.')
-      toast.error('Verification succeeded, but no session was created. Please try again.')
       return { success: false, profile: null }
     }
   }

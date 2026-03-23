@@ -66,7 +66,7 @@ export function AuthPageClient() {
       toast.success('Profile created! Start tracking your meals.')
     }
 
-    router.push('/dashboard')
+    router.push(isExistingUser ? '/dashboard' : '/onboarding')
     router.refresh()
   }
 

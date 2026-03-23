@@ -11,7 +11,7 @@ import {
   getDemoSessionEmailFromBrowser,
   normalizeAuthEmail,
 } from '@/lib/demo-session'
-import { clearAppSession, getUserProfile, saveUserProfile } from '@/lib/store'
+import { clearAppSession, getUserProfile, isProfileComplete, saveUserProfile } from '@/lib/store'
 import type { UserProfile } from '@/lib/types'
 
 interface DashboardPageClientProps {
@@ -153,6 +153,14 @@ export function DashboardPageClient({ initialSessionEmail, isDemoSession }: Dash
     }
   }, [isAuthLoading, sessionEmail, router])
 
+  useEffect(() => {
+    if (isAuthLoading || isProfileLoading || !sessionEmail) return
+
+    if (!profile || !isProfileComplete(profile)) {
+      router.replace('/onboarding')
+    }
+  }, [isAuthLoading, isProfileLoading, profile, router, sessionEmail])
+
   const handleLogout = async () => {
     const supabase = createClient()
     await supabase.auth.signOut()
@@ -162,7 +170,7 @@ export function DashboardPageClient({ initialSessionEmail, isDemoSession }: Dash
     router.refresh()
   }
 
-  if (isAuthLoading || isProfileLoading || !profile) {
+  if (isAuthLoading || isProfileLoading || !profile || !isProfileComplete(profile)) {
     return (
       <main className="mx-auto min-h-[100dvh] max-w-md">
         <AppHeader onLogout={handleLogout} showLogout />

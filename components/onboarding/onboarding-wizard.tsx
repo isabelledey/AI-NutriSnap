@@ -1,14 +1,15 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import { EmailStep } from './email-step'
 import { VerifyStep } from './verify-step'
-import { ProfileStep } from './profile-step'
 import { Progress } from '@/components/ui/progress'
 import type { UserProfile } from '@/lib/types'
 import type { AuthMode } from '@/lib/auth'
+import { setPendingOnboarding } from '@/lib/store'
 
-type OnboardingStep = 'email' | 'verify' | 'profile'
+type OnboardingStep = 'email' | 'verify'
 
 interface OnboardingWizardProps {
   mode: AuthMode
@@ -16,13 +17,13 @@ interface OnboardingWizardProps {
 }
 
 export function OnboardingWizard({ mode, onComplete }: OnboardingWizardProps) {
+  const router = useRouter()
   const [step, setStep] = useState<OnboardingStep>('email')
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
   const signUpSteps: { key: OnboardingStep; label: string }[] = [
     { key: 'email', label: 'Email' },
     { key: 'verify', label: 'Verify' },
-    { key: 'profile', label: 'Profile' },
   ]
   const signInSteps: { key: OnboardingStep; label: string }[] = [
     { key: 'email', label: 'Email' },
@@ -40,7 +41,7 @@ export function OnboardingWizard({ mode, onComplete }: OnboardingWizardProps) {
   }
 
   const handleVerified = (existingProfile: UserProfile | null) => {
-    if (existingProfile) {
+    if (mode === 'signin' && existingProfile) {
       onComplete(existingProfile, { isExistingUser: true })
       return
     }
@@ -48,11 +49,8 @@ export function OnboardingWizard({ mode, onComplete }: OnboardingWizardProps) {
       setStep('email')
       return
     }
-    setStep('profile')
-  }
-
-  const handleProfileComplete = (profile: UserProfile) => {
-    onComplete({ ...profile, email, name }, { isExistingUser: false })
+    setPendingOnboarding({ email, name })
+    router.push('/onboarding')
   }
 
   return (
@@ -86,7 +84,6 @@ export function OnboardingWizard({ mode, onComplete }: OnboardingWizardProps) {
             onBack={() => setStep('email')}
           />
         )}
-        {mode === 'signup' && step === 'profile' && <ProfileStep onComplete={handleProfileComplete} />}
       </div>
     </div>
   )

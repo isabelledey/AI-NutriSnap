@@ -3,6 +3,12 @@ import type { UserProfile, DailyLog, MealAnalysis } from './types'
 const PROFILE_KEY = 'nutrisnap_profile'
 const LOG_KEY_PREFIX = 'nutrisnap_log_'
 const PENDING_MEAL_KEY = 'nutrisnap_pending_meal'
+const PENDING_ONBOARDING_KEY = 'nutrisnap_pending_onboarding'
+
+type PendingOnboarding = {
+  email: string
+  name: string
+}
 
 function formatLocalDate(date: Date): string {
   const year = date.getFullYear()
@@ -32,6 +38,22 @@ export function saveUserProfile(profile: UserProfile): void {
 
 export function isOnboarded(): boolean {
   return getUserProfile() !== null
+}
+
+export function isProfileComplete(profile: UserProfile | null | undefined): profile is UserProfile {
+  if (!profile) return false
+
+  return Boolean(
+    profile.email &&
+      profile.name &&
+      profile.age > 0 &&
+      profile.height > 0 &&
+      profile.weight > 0 &&
+      profile.activityLevel &&
+      profile.foodPreferences.length > 0 &&
+      profile.goal &&
+      profile.dailyCalorieTarget > 0,
+  )
 }
 
 function getDateKey(date?: string): string {
@@ -98,13 +120,32 @@ export function clearPendingMeal(): void {
   localStorage.removeItem(PENDING_MEAL_KEY)
 }
 
+export function setPendingOnboarding(data: PendingOnboarding): void {
+  localStorage.setItem(PENDING_ONBOARDING_KEY, JSON.stringify(data))
+}
+
+export function getPendingOnboarding(): PendingOnboarding | null {
+  if (typeof window === 'undefined') return null
+  const data = localStorage.getItem(PENDING_ONBOARDING_KEY)
+  return data ? (JSON.parse(data) as PendingOnboarding) : null
+}
+
+export function clearPendingOnboarding(): void {
+  localStorage.removeItem(PENDING_ONBOARDING_KEY)
+}
+
 export function clearAppSession(): void {
   if (typeof window === 'undefined') return
   const keysToRemove: string[] = []
   for (let i = 0; i < localStorage.length; i++) {
     const key = localStorage.key(i)
     if (!key) continue
-    if (key === PROFILE_KEY || key === PENDING_MEAL_KEY || key.startsWith(LOG_KEY_PREFIX)) {
+    if (
+      key === PROFILE_KEY ||
+      key === PENDING_MEAL_KEY ||
+      key === PENDING_ONBOARDING_KEY ||
+      key.startsWith(LOG_KEY_PREFIX)
+    ) {
       keysToRemove.push(key)
     }
   }

@@ -37,7 +37,7 @@ export function EmailStep({ mode, onSubmit }: EmailStepProps) {
         onSubmit({ email, name: name.trim() })
       }
     } catch (error) {
-      console.error('[Sign In] Failed to get OTP code:', error)
+      console.error('[AUTH NETWORK/CORS ERROR]', error)
       toast.error(error instanceof Error ? error.message : 'Failed to send verification code. Please try again.')
     } finally {
       setLoading(false)

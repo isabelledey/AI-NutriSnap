@@ -26,7 +26,7 @@ export async function createServerClient(): Promise<SupabaseClient> {
       setAll(cookiesToSet) {
         try {
           cookiesToSet.forEach(({ name, value, options }) => {
-            cookieStore.set(name, value, options)
+            cookieStore.set(name, value, { ...options, secure: process.env.NODE_ENV === 'production' })
           })
         } catch {
           // Cookie writes can fail in some Server Component render contexts.

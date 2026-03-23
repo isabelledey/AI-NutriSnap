@@ -174,18 +174,15 @@ export async function sendOTP(email: string, name: string, mode: AuthMode = 'sig
   }
 
   const supabase = createClient()
-  const redirectUrl = typeof window !== 'undefined' ? `${window.location.origin}/auth/callback` : undefined
 
   const otpOptions =
     mode === 'signup'
       ? {
           shouldCreateUser: true,
           data: { name: trimmedName },
-          emailRedirectTo: redirectUrl,
         }
       : {
           shouldCreateUser: false,
-          emailRedirectTo: redirectUrl,
         }
 
   try {

@@ -24,6 +24,34 @@ type ProfileLookupResult = {
   profile: UserProfile | null
 }
 
+function getAuthErrorMessage(
+  error: unknown,
+  fallback: string,
+): string {
+  if (error instanceof Error && error.message.trim()) {
+    return error.message
+  }
+
+  if (typeof error === 'object' && error !== null) {
+    const message = 'message' in error ? error.message : null
+    if (typeof message === 'string' && message.trim()) {
+      return message
+    }
+
+    try {
+      return JSON.stringify(error)
+    } catch {
+      return fallback
+    }
+  }
+
+  if (typeof error === 'string' && error.trim()) {
+    return error
+  }
+
+  return fallback
+}
+
 async function waitForSupabaseSession(supabase: ReturnType<typeof createClient>, attempts = 6): Promise<boolean> {
   for (let attempt = 0; attempt < attempts; attempt += 1) {
     const {
@@ -146,18 +174,14 @@ export async function sendOTP(email: string, name: string, mode: AuthMode = 'sig
   }
 
   const supabase = createClient()
-  const emailRedirectTo =
-    typeof window !== 'undefined' ? `${window.location.origin}/dashboard` : undefined
   const otpOptions =
     mode === 'signup'
       ? {
           shouldCreateUser: true,
-          ...(emailRedirectTo ? { emailRedirectTo } : {}),
           data: { name: trimmedName },
         }
       : {
           shouldCreateUser: false,
-          ...(emailRedirectTo ? { emailRedirectTo } : {}),
         }
 
   try {
@@ -178,7 +202,7 @@ export async function sendOTP(email: string, name: string, mode: AuthMode = 'sig
       return false
     }
 
-    toast.error(authError.message || 'Failed to send verification code. Please try again.')
+    toast.error(getAuthErrorMessage(error, 'Failed to send verification code. Please try again.'))
     return false
   }
 

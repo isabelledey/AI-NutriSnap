@@ -23,7 +23,8 @@ export function VerifyStep({ mode, email, name, onVerified, onBack }: VerifyStep
   const [loading, setLoading] = useState(false)
   const [countdown, setCountdown] = useState(30)
   const [canResend, setCanResend] = useState(false)
-  const showDevBypassHint = isDevAuthBypassEnabled()
+  const isSignIn = mode === 'signin'
+  const showDevBypassHint = isSignIn || isDevAuthBypassEnabled()
 
   useEffect(() => {
     if (countdown <= 0) {
@@ -79,16 +80,26 @@ export function VerifyStep({ mode, email, name, onVerified, onBack }: VerifyStep
         <ShieldCheck className="h-8 w-8 text-primary" />
       </div>
 
-      <h2 className="mb-2 text-2xl font-bold text-foreground">Check your email</h2>
+      <h2 className="mb-2 text-2xl font-bold text-foreground">
+        {isSignIn ? 'Enter your code' : 'Check your email'}
+      </h2>
       <p className="mb-8 text-sm text-muted-foreground leading-relaxed">
-        We've sent a 6-digit code to{' '}
-        <span className="font-medium text-foreground">{email}</span>
-        . Please enter it below to verify your account.
+        {isSignIn ? (
+          <>
+            We found an account for <span className="font-medium text-foreground">{email}</span>.
+            Enter the 6-digit code below to continue.
+          </>
+        ) : (
+          <>
+            We've sent a 6-digit code to <span className="font-medium text-foreground">{email}</span>.
+            Please enter it below to verify your account.
+          </>
+        )}
       </p>
 
       {showDevBypassHint && (
         <div className="mb-6 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700">
-          Dev Mode: enter {DEMO_OTP}
+          {isSignIn ? `Use ${DEMO_OTP} to sign in.` : `Dev Mode: enter ${DEMO_OTP}`}
         </div>
       )}
 
@@ -117,11 +128,11 @@ export function VerifyStep({ mode, email, name, onVerified, onBack }: VerifyStep
             onClick={handleResend}
             className="text-sm font-medium text-primary hover:underline"
           >
-            Resend Code
+            {isSignIn ? 'Get Code Again' : 'Resend Code'}
           </button>
         ) : (
           <span className="text-sm text-muted-foreground">
-            Resend code in {countdown}s
+            {isSignIn ? `Get code again in ${countdown}s` : `Resend code in ${countdown}s`}
           </span>
         )}
       </div>

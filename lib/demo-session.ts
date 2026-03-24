@@ -4,6 +4,7 @@ export const DEMO_OTP = '123456'
 export const DEMO_SESSION_COOKIE = 'nutrisnap_demo_session'
 const DEMO_SESSION_STORAGE_KEY = 'nutrisnap_demo_session'
 const DEMO_SESSION_MAX_AGE = 60 * 60 * 8
+const DEMO_SESSION_EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
 export function isDevAuthBypassEnabled(): boolean {
   return process.env.NEXT_PUBLIC_USE_DEMO_OTP === 'true' || process.env.NODE_ENV !== 'production'
@@ -33,12 +34,40 @@ export function createDefaultDemoProfile(
   }
 }
 
+function parseDemoSessionEmail(value?: string | null): string | null {
+  if (!value) {
+    return null
+  }
+
+  try {
+    const normalizedEmail = normalizeAuthEmail(decodeURIComponent(value))
+    return DEMO_SESSION_EMAIL_PATTERN.test(normalizedEmail) ? normalizedEmail : null
+  } catch {
+    return null
+  }
+}
+
+function buildDemoSessionCookie(value: string, maxAge: number): string {
+  const attributes = [
+    `${DEMO_SESSION_COOKIE}=${encodeURIComponent(value)}`,
+    'Path=/',
+    `Max-Age=${maxAge}`,
+    'SameSite=Lax',
+  ]
+
+  if (window.location.protocol === 'https:') {
+    attributes.push('Secure')
+  }
+
+  return attributes.join('; ')
+}
+
 export function persistDemoSession(email: string): void {
   if (typeof window === 'undefined') return
 
   const normalizedEmail = normalizeAuthEmail(email)
   localStorage.setItem(DEMO_SESSION_STORAGE_KEY, normalizedEmail)
-  document.cookie = `${DEMO_SESSION_COOKIE}=${encodeURIComponent(normalizedEmail)}; Path=/; Max-Age=${DEMO_SESSION_MAX_AGE}; SameSite=Lax`
+  document.cookie = buildDemoSessionCookie(normalizedEmail, DEMO_SESSION_MAX_AGE)
 }
 
 export function clearDemoSession(): void {
@@ -47,16 +76,15 @@ export function clearDemoSession(): void {
   localStorage.removeItem(DEMO_SESSION_STORAGE_KEY)
   localStorage.removeItem('demo_otp_email')
   localStorage.removeItem('demo_otp_mode')
-  document.cookie = `${DEMO_SESSION_COOKIE}=; Path=/; Max-Age=0; SameSite=Lax`
+  document.cookie = buildDemoSessionCookie('', 0)
 }
 
 export function getDemoSessionEmailFromBrowser(): string | null {
   if (typeof window === 'undefined') return null
-  if (!isDevAuthBypassEnabled()) return null
 
-  const storedEmail = localStorage.getItem(DEMO_SESSION_STORAGE_KEY)
+  const storedEmail = parseDemoSessionEmail(localStorage.getItem(DEMO_SESSION_STORAGE_KEY))
   if (storedEmail) {
-    return normalizeAuthEmail(storedEmail)
+    return storedEmail
   }
 
   const cookieValue = document.cookie
@@ -66,19 +94,15 @@ export function getDemoSessionEmailFromBrowser(): string | null {
     .slice(1)
     .join('=')
 
-  if (!cookieValue) {
+  const normalizedEmail = parseDemoSessionEmail(cookieValue)
+  if (!normalizedEmail) {
     return null
   }
 
-  const decodedValue = decodeURIComponent(cookieValue)
-  localStorage.setItem(DEMO_SESSION_STORAGE_KEY, normalizeAuthEmail(decodedValue))
-  return normalizeAuthEmail(decodedValue)
+  localStorage.setItem(DEMO_SESSION_STORAGE_KEY, normalizedEmail)
+  return normalizedEmail
 }
 
 export function getDemoSessionEmailFromCookieValue(cookieValue?: string | null): string | null {
-  if (!cookieValue || !isDevAuthBypassEnabled()) {
-    return null
-  }
-
-  return normalizeAuthEmail(decodeURIComponent(cookieValue))
+  return parseDemoSessionEmail(cookieValue)
 }

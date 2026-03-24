@@ -186,8 +186,8 @@ export function OnboardingPageClient({ initialSessionEmail }: OnboardingPageClie
     }
 
     clearPendingOnboarding()
-    router.push('/dashboard')
     router.refresh()
+    router.push('/dashboard')
   }
 
   const handleLogout = async () => {

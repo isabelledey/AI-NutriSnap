@@ -50,6 +50,7 @@ export function OnboardingWizard({ mode, onComplete }: OnboardingWizardProps) {
       return
     }
     setPendingOnboarding({ email, name })
+    router.refresh()
     router.push('/onboarding')
   }
 

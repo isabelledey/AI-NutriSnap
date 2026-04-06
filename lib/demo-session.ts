@@ -76,6 +76,8 @@ export function clearDemoSession(): void {
   localStorage.removeItem(DEMO_SESSION_STORAGE_KEY)
   localStorage.removeItem('demo_otp_email')
   localStorage.removeItem('demo_otp_mode')
+  localStorage.removeItem('demo_otp_name')
+  localStorage.removeItem('demo_otp_strategy')
   document.cookie = buildDemoSessionCookie('', 0)
 }
 

@@ -1,10 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Checkbox } from '@/components/ui/checkbox'
-import { Mail, ArrowRight, Loader2, User, Leaf } from 'lucide-react'
+import { Mail, ArrowRight, Loader2, User } from 'lucide-react'
 import { sendOTP } from '@/lib/auth'
 import { TermsModal } from '@/components/legal/terms-modal'
 import type { AuthMode } from '@/lib/auth'
@@ -12,12 +11,14 @@ import { toast } from 'sonner'
 
 interface EmailStepProps {
   mode: AuthMode
+  email: string
+  name: string
+  onDraftChange: (payload: { email: string; name: string }) => void
+  onModeChange: (nextMode: AuthMode) => void
   onSubmit: (payload: { email: string; name: string }) => void
 }
 
-export function EmailStep({ mode, onSubmit }: EmailStepProps) {
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
+export function EmailStep({ mode, email, name, onDraftChange, onModeChange, onSubmit }: EmailStepProps) {
   const [loading, setLoading] = useState(false)
   const [agreedToTerms, setAgreedToTerms] = useState(false)
   const [termsOpen, setTermsOpen] = useState(false)
@@ -32,8 +33,14 @@ export function EmailStep({ mode, onSubmit }: EmailStepProps) {
 
     setLoading(true)
     try {
-      const sent = await sendOTP(email, name, mode)
-      if (sent) {
+      const result = await sendOTP(email, name, mode)
+
+      if (result.nextMode) {
+        onModeChange(result.nextMode)
+        return
+      }
+
+      if (result.success && result.shouldTransition) {
         onSubmit({ email, name: name.trim() })
       }
     } catch (error) {
@@ -84,7 +91,7 @@ export function EmailStep({ mode, onSubmit }: EmailStepProps) {
                 <input 
                   type="text"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={(e) => onDraftChange({ email, name: e.target.value })}
                   className="w-full rounded-xl border-slate-200 bg-white py-3.5 pl-11 pr-4 outline-none transition-all focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20" 
                   placeholder="John Doe" 
                   autoFocus
@@ -101,7 +108,7 @@ export function EmailStep({ mode, onSubmit }: EmailStepProps) {
               <input 
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => onDraftChange({ email: e.target.value, name })}
                 className="w-full rounded-xl border-slate-200 bg-white py-3.5 pl-11 pr-4 outline-none transition-all focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20" 
                 placeholder="hello@example.com" 
                 autoFocus={!isSignUp}

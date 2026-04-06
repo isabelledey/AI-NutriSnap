@@ -2,8 +2,15 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { createServerClient } from '@supabase/ssr'
 import { DEMO_SESSION_COOKIE, getDemoSessionEmailFromCookieValue } from '@/lib/demo-session'
 
-function isDashboardRequest(pathname: string): boolean {
-  return pathname === '/dashboard' || pathname.startsWith('/dashboard/')
+function isProtectedAppRoute(pathname: string): boolean {
+  return (
+    pathname === '/dashboard' ||
+    pathname.startsWith('/dashboard/') ||
+    pathname === '/build-profile' ||
+    pathname.startsWith('/build-profile/') ||
+    pathname === '/onboarding' ||
+    pathname.startsWith('/onboarding/')
+  )
 }
 
 function redirectToHome(request: NextRequest): NextResponse {
@@ -27,7 +34,7 @@ export async function updateSession(request: NextRequest) {
   const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
   if (!supabaseUrl || !supabaseAnonKey) {
-    if (isDashboardRequest(pathname) && !hasDemoSession) {
+    if (isProtectedAppRoute(pathname) && !hasDemoSession) {
       return redirectToHome(request)
     }
     return response
@@ -67,8 +74,8 @@ export async function updateSession(request: NextRequest) {
   }
 
   const hasSupabaseSession = Boolean(user)
-  if (isDashboardRequest(pathname) && !hasSupabaseSession && !hasDemoSession) {
-    console.error('[AUTH DEBUG] Middleware saw no verified user for dashboard request.', {
+  if (isProtectedAppRoute(pathname) && !hasSupabaseSession && !hasDemoSession) {
+    console.error('[AUTH DEBUG] Middleware saw no verified user for protected request.', {
       path: pathname,
       hasAuthCookies: request.cookies.getAll().some((cookie) => cookie.name.startsWith('sb-')),
       hasDemoSession,

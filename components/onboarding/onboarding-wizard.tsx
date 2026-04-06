@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { EmailStep } from './email-step'
 import { VerifyStep } from './verify-step'
@@ -10,6 +10,7 @@ import type { AuthMode } from '@/lib/auth'
 import { setPendingOnboarding } from '@/lib/store'
 
 type OnboardingStep = 'email' | 'verify'
+const PROFILE_ONBOARDING_ROUTE = '/build-profile'
 
 interface OnboardingWizardProps {
   mode: AuthMode
@@ -18,9 +19,11 @@ interface OnboardingWizardProps {
 
 export function OnboardingWizard({ mode, onComplete }: OnboardingWizardProps) {
   const router = useRouter()
+  const [activeMode, setActiveMode] = useState<AuthMode>(mode)
   const [step, setStep] = useState<OnboardingStep>('email')
   const [email, setEmail] = useState('')
   const [name, setName] = useState('')
+  const isSignUp = activeMode === 'signup'
   const signUpSteps: { key: OnboardingStep; label: string }[] = [
     { key: 'email', label: 'Email' },
     { key: 'verify', label: 'Verify' },
@@ -29,10 +32,24 @@ export function OnboardingWizard({ mode, onComplete }: OnboardingWizardProps) {
     { key: 'email', label: 'Email' },
     { key: 'verify', label: 'Verify' },
   ]
-  const steps = mode === 'signup' ? signUpSteps : signInSteps
+  const steps = activeMode === 'signup' ? signUpSteps : signInSteps
+
+  useEffect(() => {
+    setActiveMode(mode)
+  }, [mode])
 
   const currentIndex = steps.findIndex((s) => s.key === step)
   const progressValue = ((currentIndex + 1) / steps.length) * 100
+
+  const handleDraftChange = (payload: { email: string; name: string }) => {
+    setEmail(payload.email)
+    setName(payload.name)
+  }
+
+  const handleModeChange = (nextMode: AuthMode) => {
+    setActiveMode(nextMode)
+    setStep('email')
+  }
 
   const handleEmailSubmit = (payload: { email: string; name: string }) => {
     setEmail(payload.email)
@@ -41,17 +58,25 @@ export function OnboardingWizard({ mode, onComplete }: OnboardingWizardProps) {
   }
 
   const handleVerified = (existingProfile: UserProfile | null) => {
-    if (mode === 'signin' && existingProfile) {
+    if (!isSignUp && existingProfile) {
       onComplete(existingProfile, { isExistingUser: true })
       return
     }
-    if (mode === 'signin') {
+
+    if (!isSignUp) {
+      router.refresh()
+      router.push('/dashboard')
+      return
+    }
+
+    if (!email) {
       setStep('email')
       return
     }
+
     setPendingOnboarding({ email, name })
     router.refresh()
-    router.push('/onboarding')
+    router.push(PROFILE_ONBOARDING_ROUTE)
   }
 
   return (
@@ -75,10 +100,19 @@ export function OnboardingWizard({ mode, onComplete }: OnboardingWizardProps) {
 
       {/* Step content */}
       <div className="flex flex-1 flex-col">
-        {step === 'email' && <EmailStep mode={mode} onSubmit={handleEmailSubmit} />}
+        {step === 'email' && (
+          <EmailStep
+            mode={activeMode}
+            email={email}
+            name={name}
+            onDraftChange={handleDraftChange}
+            onModeChange={handleModeChange}
+            onSubmit={handleEmailSubmit}
+          />
+        )}
         {step === 'verify' && (
           <VerifyStep
-            mode={mode}
+            mode={activeMode}
             email={email}
             name={name}
             onVerified={handleVerified}

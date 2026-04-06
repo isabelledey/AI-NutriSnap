@@ -9,6 +9,8 @@ import { toast } from 'sonner'
 import type { UserProfile } from '@/lib/types'
 import type { AuthMode } from '@/lib/auth'
 
+const PROFILE_ONBOARDING_ROUTE = '/build-profile'
+
 export function AuthPageClient() {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -67,7 +69,7 @@ export function AuthPageClient() {
     }
 
     router.refresh()
-    router.push(isExistingUser ? '/dashboard' : '/onboarding')
+    router.push(isExistingUser ? '/dashboard' : PROFILE_ONBOARDING_ROUTE)
   }
 
   if (showOnboarding) {

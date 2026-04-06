@@ -19,6 +19,8 @@ interface DashboardPageClientProps {
   isDemoSession: boolean
 }
 
+const PROFILE_ONBOARDING_ROUTE = '/build-profile'
+
 export function DashboardPageClient({ initialSessionEmail, isDemoSession }: DashboardPageClientProps) {
   const router = useRouter()
   const [sessionEmail, setSessionEmail] = useState<string | null>(initialSessionEmail)
@@ -157,7 +159,7 @@ export function DashboardPageClient({ initialSessionEmail, isDemoSession }: Dash
     if (isAuthLoading || isProfileLoading || !sessionEmail) return
 
     if (!profile || !isProfileComplete(profile)) {
-      router.replace('/onboarding')
+      router.replace(PROFILE_ONBOARDING_ROUTE)
     }
   }, [isAuthLoading, isProfileLoading, profile, router, sessionEmail])
 

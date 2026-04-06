@@ -15,41 +15,23 @@ export type VerifyOtpResult = {
 }
 
 export type AuthMode = 'signup' | 'signin'
+export type OtpDeliveryStrategy = 'mock' | 'supabase'
+
+export type SendOtpResult = {
+  success: boolean
+  shouldTransition: boolean
+  nextMode?: AuthMode
+  delivery?: OtpDeliveryStrategy
+}
 
 const DEV_AUTH_EMAIL_KEY = 'demo_otp_email'
 const DEV_AUTH_MODE_KEY = 'demo_otp_mode'
+const DEV_AUTH_NAME_KEY = 'demo_otp_name'
+const DEV_AUTH_STRATEGY_KEY = 'demo_otp_strategy'
 
 type ProfileLookupResult = {
   exists: boolean
   profile: UserProfile | null
-}
-
-function getAuthErrorMessage(
-  error: unknown,
-  fallback: string,
-): string {
-  if (error instanceof Error && error.message.trim()) {
-    return error.message
-  }
-
-  if (typeof error === 'object' && error !== null) {
-    const message = 'message' in error ? error.message : null
-    if (typeof message === 'string' && message.trim()) {
-      return message
-    }
-
-    try {
-      return JSON.stringify(error)
-    } catch {
-      return fallback
-    }
-  }
-
-  if (typeof error === 'string' && error.trim()) {
-    return error
-  }
-
-  return fallback
 }
 
 async function waitForSupabaseSession(supabase: ReturnType<typeof createClient>, attempts = 6): Promise<boolean> {
@@ -85,7 +67,11 @@ async function fetchProfileByEmail(email: string): Promise<ProfileLookupResult> 
 }
 
 async function createDevSignupProfile(email: string, name: string): Promise<UserProfile> {
-  const profilePayload = createDefaultDemoProfile(email, { name })
+  const profilePayload: UserProfile = {
+    ...createDefaultDemoProfile(email, { name }),
+    // Keep demo signups in an explicitly incomplete state so onboarding can continue.
+    foodPreferences: [],
+  }
 
   const res = await fetch('/api/profile', {
     method: 'POST',
@@ -103,33 +89,61 @@ async function createDevSignupProfile(email: string, name: string): Promise<User
   return data.profile as UserProfile
 }
 
-export async function sendOTP(email: string, name: string, mode: AuthMode = 'signup'): Promise<boolean> {
+function setPendingOtpAttempt(
+  email: string,
+  mode: AuthMode,
+  strategy: OtpDeliveryStrategy,
+  name = '',
+): void {
+  localStorage.setItem(DEV_AUTH_EMAIL_KEY, email)
+  localStorage.setItem(DEV_AUTH_MODE_KEY, mode)
+  localStorage.setItem(DEV_AUTH_STRATEGY_KEY, strategy)
+
+  if (name.trim()) {
+    localStorage.setItem(DEV_AUTH_NAME_KEY, name.trim())
+    return
+  }
+
+  localStorage.removeItem(DEV_AUTH_NAME_KEY)
+}
+
+function clearPendingOtpAttempt(): void {
+  localStorage.removeItem(DEV_AUTH_EMAIL_KEY)
+  localStorage.removeItem(DEV_AUTH_MODE_KEY)
+  localStorage.removeItem(DEV_AUTH_NAME_KEY)
+  localStorage.removeItem(DEV_AUTH_STRATEGY_KEY)
+}
+
+export async function sendOTP(email: string, name: string, mode: AuthMode = 'signup'): Promise<SendOtpResult> {
   const normalizedEmail = normalizeAuthEmail(email)
   const trimmedName = name.trim()
-  const isDevBypassEnabled = isDevAuthBypassEnabled()
 
   if (!normalizedEmail) {
     toast.error('Email is required.')
-    return false
+    return { success: false, shouldTransition: false }
   }
 
   if (mode === 'signup' && !trimmedName) {
     toast.error('Name is required.')
-    return false
+    return { success: false, shouldTransition: false }
   }
 
   try {
     const profileLookup = await fetchProfileByEmail(normalizedEmail)
     const existingPendingEmail = localStorage.getItem(DEV_AUTH_EMAIL_KEY)
     const existingPendingMode = localStorage.getItem(DEV_AUTH_MODE_KEY)
-    const isCurrentDevSignupAttempt =
-      isDevBypassEnabled &&
+    const isCurrentPendingSignupAttempt =
       mode === 'signup' &&
       existingPendingEmail === normalizedEmail &&
       existingPendingMode === 'signup'
 
-    if (mode === 'signup' && profileLookup.exists && !isCurrentDevSignupAttempt) {
-      throw new Error('This email is already registered to NutriSnap. Please log in instead.')
+    if (mode === 'signup' && profileLookup.exists && !isCurrentPendingSignupAttempt) {
+      toast.info('That email already has an account. Switching you to Log In.')
+      return {
+        success: false,
+        shouldTransition: false,
+        nextMode: 'signin',
+      }
     }
 
     if (mode === 'signin' && !profileLookup.exists) {
@@ -137,28 +151,35 @@ export async function sendOTP(email: string, name: string, mode: AuthMode = 'sig
     }
 
     if (mode === 'signin') {
-      localStorage.setItem(DEV_AUTH_EMAIL_KEY, normalizedEmail)
-      localStorage.setItem(DEV_AUTH_MODE_KEY, mode)
+      setPendingOtpAttempt(normalizedEmail, mode, 'mock')
       toast.success(`Code ready. Enter ${DEMO_OTP}`)
-      return true
-    }
-
-    if (isDevBypassEnabled) {
-      if (mode === 'signup' && !profileLookup.exists) {
-        await createDevSignupProfile(normalizedEmail, trimmedName)
+      return {
+        success: true,
+        shouldTransition: true,
+        delivery: 'mock',
       }
-
-      localStorage.setItem(DEV_AUTH_EMAIL_KEY, normalizedEmail)
-      localStorage.setItem(DEV_AUTH_MODE_KEY, mode)
-      toast.success(`Dev Mode: enter ${DEMO_OTP}`)
-      return true
     }
+
+    if (!profileLookup.exists) {
+      await createDevSignupProfile(normalizedEmail, trimmedName)
+    }
+
+    setPendingOtpAttempt(normalizedEmail, mode, 'mock', trimmedName)
   } catch (error) {
     console.error('[AUTH DEBUG]', error)
     if (error instanceof Error) {
       throw error
     }
     throw new Error('Failed to start authentication. Please try again.')
+  }
+
+  if (isDevAuthBypassEnabled()) {
+    toast.success(`Code ready. Enter ${DEMO_OTP}`)
+    return {
+      success: true,
+      shouldTransition: true,
+      delivery: 'mock',
+    }
   }
 
   const supabase = createClient()
@@ -183,62 +204,50 @@ export async function sendOTP(email: string, name: string, mode: AuthMode = 'sig
       throw error
     }
   } catch (error) {
-    const authError = error as { message?: string; status?: number }
-    
-    const isEmailError =
-      authError.status === 429 ||
-      authError.status === 500 ||
-      authError.message?.toLowerCase().includes('magic link') ||
-      authError.message?.toLowerCase().includes('email')
-
-    if (isEmailError) {
-      console.warn('[AUTH SOFT FAIL] Ignored email send error to allow demo OTP bypass:', error)
-      toast.info('Email quota reached or failed. Proceeding to allow demo code entry.')
-      return true
+    console.warn('[AUTH SOFT FAIL] Ignored OTP email send error and continuing with mock OTP:', error)
+    toast.info(`Email quota reached or failed. Enter ${DEMO_OTP} to continue.`)
+    return {
+      success: true,
+      shouldTransition: true,
+      delivery: 'mock',
     }
-
-    console.error('[AUTH DEBUG]', error)
-    toast.error(getAuthErrorMessage(error, 'Failed to send verification code. Please try again.'))
-    return false
   }
 
-  toast.success('Verification code sent!')
-  return true
+  toast.success(`Verification code sent. You can also enter ${DEMO_OTP}.`)
+  return {
+    success: true,
+    shouldTransition: true,
+    delivery: 'mock',
+  }
 }
 
 export async function verifyOTP(email: string, code: string): Promise<VerifyOtpResult> {
   const normalizedEmail = normalizeAuthEmail(email)
   const token = code.trim()
-  const isDevBypassEnabled = isDevAuthBypassEnabled()
   const storedEmail = localStorage.getItem(DEV_AUTH_EMAIL_KEY)
   const storedMode = localStorage.getItem(DEV_AUTH_MODE_KEY)
-  const isPendingMockSignin = storedMode === 'signin'
-  let usedMockSignin = false
+  const storedName = localStorage.getItem(DEV_AUTH_NAME_KEY)?.trim() ?? ''
+  const storedStrategy = localStorage.getItem(DEV_AUTH_STRATEGY_KEY) as OtpDeliveryStrategy | null
+  const legacyMockSignin = storedMode === 'signin' && !storedStrategy
+  const shouldUseMockOtp =
+    storedEmail === normalizedEmail &&
+    (storedStrategy === 'mock' || legacyMockSignin || (isDevAuthBypassEnabled() && storedMode === 'signup'))
+  let usedMockOtp = false
 
   if (!normalizedEmail || token.length !== 6) {
     toast.error('Invalid verification code.')
     return { success: false, profile: null }
   }
 
-  if (isPendingMockSignin) {
-    if (storedEmail !== normalizedEmail || token !== DEMO_OTP) {
+  if (shouldUseMockOtp) {
+    if (token !== DEMO_OTP) {
       toast.error('Invalid verification code.')
       return { success: false, profile: null }
     }
 
-    localStorage.removeItem(DEV_AUTH_EMAIL_KEY)
-    localStorage.removeItem(DEV_AUTH_MODE_KEY)
+    clearPendingOtpAttempt()
     persistDemoSession(normalizedEmail)
-    usedMockSignin = true
-  } else if (isDevBypassEnabled) {
-    if (storedEmail !== normalizedEmail || token !== DEMO_OTP) {
-      toast.error('Invalid verification code.')
-      return { success: false, profile: null }
-    }
-
-    localStorage.removeItem(DEV_AUTH_EMAIL_KEY)
-    localStorage.removeItem(DEV_AUTH_MODE_KEY)
-    persistDemoSession(normalizedEmail)
+    usedMockOtp = true
   } else {
     const supabase = createClient()
     try {
@@ -277,22 +286,22 @@ export async function verifyOTP(email: string, code: string): Promise<VerifyOtpR
     }
   }
 
-  toast.success(usedMockSignin ? 'Code verified!' : 'Email verified!')
+  toast.success(usedMockOtp ? 'Code verified!' : 'Email verified!')
 
   try {
     const profileLookup = await fetchProfileByEmail(normalizedEmail)
-    const canUseFallbackProfile = usedMockSignin || isDevBypassEnabled
 
     return {
       success: true,
-      profile: profileLookup.profile ?? (canUseFallbackProfile ? createDefaultDemoProfile(normalizedEmail) : null),
+      profile:
+        profileLookup.profile ??
+        (usedMockOtp ? createDefaultDemoProfile(normalizedEmail, { name: storedName }) : null),
     }
   } catch (error) {
     console.error('[AUTH DEBUG]', error)
-    const canUseFallbackProfile = usedMockSignin || isDevBypassEnabled
     return {
       success: true,
-      profile: canUseFallbackProfile ? createDefaultDemoProfile(normalizedEmail) : null,
+      profile: usedMockOtp ? createDefaultDemoProfile(normalizedEmail, { name: storedName }) : null,
     }
   }
 }

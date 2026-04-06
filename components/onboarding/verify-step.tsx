@@ -19,12 +19,18 @@ interface VerifyStepProps {
 }
 
 export function VerifyStep({ mode, email, name, onVerified, onBack }: VerifyStepProps) {
+  const isSignIn = mode === 'signin'
   const [code, setCode] = useState('')
   const [loading, setLoading] = useState(false)
   const [countdown, setCountdown] = useState(30)
   const [canResend, setCanResend] = useState(false)
-  const isSignIn = mode === 'signin'
-  const showDevBypassHint = isSignIn || isDevAuthBypassEnabled()
+  const [showMockCodeHint, setShowMockCodeHint] = useState(isSignIn || isDevAuthBypassEnabled())
+
+  useEffect(() => {
+    const hasMockOtpStrategy =
+      typeof window !== 'undefined' && localStorage.getItem('demo_otp_strategy') === 'mock'
+    setShowMockCodeHint(isSignIn || isDevAuthBypassEnabled() || hasMockOtpStrategy)
+  }, [isSignIn])
 
   useEffect(() => {
     if (countdown <= 0) {
@@ -57,8 +63,8 @@ export function VerifyStep({ mode, email, name, onVerified, onBack }: VerifyStep
     setCanResend(false)
     setCountdown(30)
     try {
-      const sent = await sendOTP(email, name, mode)
-      if (!sent) {
+      const result = await sendOTP(email, name, mode)
+      if (!result.success) {
         setCanResend(true)
       }
     } catch (error) {
@@ -97,9 +103,9 @@ export function VerifyStep({ mode, email, name, onVerified, onBack }: VerifyStep
         )}
       </p>
 
-      {showDevBypassHint && (
+      {showMockCodeHint && (
         <div className="mb-6 rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm font-medium text-emerald-700">
-          {isSignIn ? `Use ${DEMO_OTP} to sign in.` : `Dev Mode: enter ${DEMO_OTP}`}
+          {isSignIn ? `Use ${DEMO_OTP} to sign in.` : `Use ${DEMO_OTP} to finish signing up.`}
         </div>
       )}
 

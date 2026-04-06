@@ -109,12 +109,7 @@ export function OnboardingPageClient({ initialSessionEmail }: OnboardingPageClie
 
       const pendingOnboarding = getPendingOnboarding()
       const localProfile = getUserProfile()
-
-      if (localProfile?.email === sessionEmail && isProfileComplete(localProfile)) {
-        clearPendingOnboarding()
-        router.replace('/dashboard')
-        return
-      }
+      const localProfileForSession = localProfile?.email === sessionEmail ? localProfile : null
 
       try {
         const res = await fetch(`/api/profile?email=${encodeURIComponent(sessionEmail)}`, {
@@ -130,12 +125,15 @@ export function OnboardingPageClient({ initialSessionEmail }: OnboardingPageClie
             setProfileName(remoteProfile.name)
           }
 
+          // Only the remote profile should decide whether onboarding is actually finished.
           if (isProfileComplete(remoteProfile)) {
             saveUserProfile(remoteProfile)
             clearPendingOnboarding()
             router.replace('/dashboard')
             return
           }
+        } else if (localProfileForSession?.name && !pendingOnboarding?.name) {
+          setProfileName(localProfileForSession.name)
         }
       } finally {
         if (!ignore) {
